@@ -24,12 +24,12 @@ class ResumesController extends Controller
 
     public function store(Request $request)
     {
+        dd($request);
         $resume = new Resume();
         $attributes = request()->validate([
             'FIO' => 'required',
         ]);
-
-        return $resume->create($attributes);;
+        return $resume->create($attributes);
 
     }
 
