@@ -15,6 +15,11 @@ class CreateResumesTable extends Migration
     {
         Schema::create('resumes', function (Blueprint $table) {
             $table->id();
+            $table->string('FIO');
+            $table->string('email');
+            $table->string('text');
+            $table->date('interview_date');
+            $table->unsignedInteger('status_id');
             $table->timestamps();
         });
     }

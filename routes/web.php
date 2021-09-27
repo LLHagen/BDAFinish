@@ -17,4 +17,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-//Route::resource('todos','TodosController');
+Route::resource('resumes','ResumesController');
