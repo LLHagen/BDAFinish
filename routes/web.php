@@ -18,3 +18,9 @@ Route::get('/', function () {
 });
 
 Route::resource('resumes','ResumesController');
+
+
+Route::get('test', [\App\Http\Controllers\ResumesController::class, 'test']);
+
+// костыльный сидер сделать адекватно
+Route::get('spravka', [\App\Http\Controllers\ResumesController::class, 'seeder']);

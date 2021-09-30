@@ -6,13 +6,26 @@ use App\Models\Resume;
 use App\Models\Level;
 use App\Models\Vacancy;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ResumesController extends Controller
 {
     public function index()
     {
-        $resumes = Resume::get();
+        $resumes = Resume::get();//
         return view('resumes.list', compact('resumes'));
+    }
+    public function test()
+    {
+
+        //        $users = DB::table('users')
+//            ->join('contacts', 'users.id', '=', 'contacts.user_id')
+//            ->join('orders', 'users.id', '=', 'orders.user_id')
+//            ->select('users.*', 'contacts.phone', 'orders.price')
+//            ->get();
+
+//        $resumes = Resume::join('contacts', 'users.id', '=', 'contacts.user_id')->get();
+        return view('resumes.test', compact('resumes'));
     }
 
     public function show(Resume $resume)
@@ -33,22 +46,13 @@ class ResumesController extends Controller
 //        dd(request()->get('text'), request()->all());
         $resume = new Resume();
 
-//        "FIO" => "rqweq qwqwrqwe qwrqwe"
-//        "email" => "igor-smirnov-94@mail.ru"
-//        "level_id" => "Мидл"
-//        "vacancy_id" => "Верстальщик"
-//        "text" => """
-//            asfdfh fg
-//            yutyujghjg
-//        """
-
         $attributes = request()->validate([
             'FIO' => 'required',
             'email' => 'required',
             'text' => 'required',
         ]);
 
-//        $attributes['level_id'] = Level::select('id')->where('name', request()->get('level_id'))->first()->id;
+        $attributes['level_id'] = Level::select('id')->where('name', request()->get('level_id'))->first()->id;
 //        $attributes['vacancy_id'] = Vacancy::select('id')->where('name', request()->get('vacancy_id'))->first()->id;
 
         $resume->create($attributes);
@@ -74,5 +78,52 @@ class ResumesController extends Controller
         ]);
         $resume->update($attributes);
         return back();
+    }
+
+// костыльный сидер сделать адекватно
+    public function seeder()
+    {
+        DB::table('levels')->insert([
+            ['name' => 'Джун'],
+            ['name' => 'Мидл'],
+            ['name' => 'Синьор'],
+        ]);
+        DB::table('statuses')->insert([
+            ['name' => 'Ожидает'],
+            ['name' => 'Рассмотрен'],
+            ['name' => 'Одобрен'],
+        ]);
+        DB::table('vacancies')->insert([
+            [
+                'name' => 'PHP Разработчик',
+                'description' => 'PHP Разработчик description'
+            ],
+            [
+                'name' => 'Тестировщик',
+                'description' => 'Тестировщик description'
+            ],
+            [
+                'name' => 'Верстальщик',
+                'description' => 'Верстальщик description'
+            ],
+        ]);
+
+        DB::table('resumes')->insert([
+            [
+                'FIO' => 'Иванов Иван Иванович',
+                'email' => 'igot-smirnov-94@mail.ru',
+                'text' => 'Резюме текст',
+                'status_id' => 1,
+                'level_id' => 1,
+            ],
+            [
+                'FIO' => 'Петров Петр Петрович',
+                'email' => 'igot-smirnov-94@mail.ru',
+                'text' => 'Резюме текст',
+                'status_id' => 2,
+                'level_id' => 1,
+            ],
+        ]);
+
     }
 }
