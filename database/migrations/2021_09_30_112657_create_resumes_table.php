@@ -14,14 +14,14 @@ class CreateResumesTable extends Migration
     public function up()
     {
         Schema::create('resumes', function (Blueprint $table) {
-            $table->id();
-            $table->string('FIO');
-            $table->string('email');
-            $table->text('text');
-            $table->date('interview_date')->nullable();
-            $table->unsignedInteger('level_id')->nullable();
-            $table->unsignedInteger('status_id')->default(1);
-            $table->timestamps();
+        $table->increments('id');
+        $table->string('FIO');
+        $table->string('email');
+        $table->text('text');
+        $table->date('interview_date')->nullable();
+        $table->unsignedInteger('level_id')->nullable();
+        $table->unsignedInteger('status_id')->default(1)->nullable();
+        $table->timestamps();
         });
     }
 

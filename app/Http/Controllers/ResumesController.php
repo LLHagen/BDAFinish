@@ -18,11 +18,22 @@ class ResumesController extends Controller
     public function test()
     {
 
-        //        $users = DB::table('users')
-//            ->join('contacts', 'users.id', '=', 'contacts.user_id')
-//            ->join('orders', 'users.id', '=', 'orders.user_id')
-//            ->select('users.*', 'contacts.phone', 'orders.price')
-//            ->get();
+        $resumes = DB::table('resumes')
+            ->join('levels', 'levels.id', '=', 'resumes.level_id')
+            ->select('resumes.*', 'levels.name')
+            ->get();
+
+
+//        $table->increments('id');
+//        $table->string('FIO');
+//        $table->string('email');
+//        $table->text('text');
+//        $table->date('interview_date')->nullable();
+//        $table->unsignedInteger('level_id')->nullable();
+//        $table->unsignedInteger('status_id')->default(1);
+//        $table->timestamps();
+
+
 
 //        $resumes = Resume::join('contacts', 'users.id', '=', 'contacts.user_id')->get();
         return view('resumes.test', compact('resumes'));
@@ -62,7 +73,8 @@ class ResumesController extends Controller
 
     public function destroy($id)
     {
-        return Resume::where('id', $id)->delete();
+        Resume::destroy($id);
+        return back();
     }
 
     public function edit($id)

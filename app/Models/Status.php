@@ -4,10 +4,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Level extends Model
+class Status extends Model
 {
     use HasFactory;
-    protected $table = 'levels';
+    protected $table = 'statuses';
     protected $guarded = [];
     public $timestamps = false;
 
