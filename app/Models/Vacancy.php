@@ -9,4 +9,10 @@ class Vacancy extends Model
     use HasFactory;
     protected $table = 'vacancies';
     protected $guarded = [];
+    public $timestamps = false;
+
+    public function resumes()
+    {
+        return $this->hasMany(Resume::class);
+    }
 }
