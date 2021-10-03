@@ -12,31 +12,11 @@ class ResumesController extends Controller
 {
     public function index()
     {
-        $resumes = Resume::get();//
-        return view('resumes.list', compact('resumes'));
-    }
-    public function test()
-    {
-
         $resumes = DB::table('resumes')
             ->join('levels', 'levels.id', '=', 'resumes.level_id')
-            ->select('resumes.*', 'levels.name')
+            ->select('resumes.*', 'levels.name as level')
             ->get();
-
-
-//        $table->increments('id');
-//        $table->string('FIO');
-//        $table->string('email');
-//        $table->text('text');
-//        $table->date('interview_date')->nullable();
-//        $table->unsignedInteger('level_id')->nullable();
-//        $table->unsignedInteger('status_id')->default(1);
-//        $table->timestamps();
-
-
-
-//        $resumes = Resume::join('contacts', 'users.id', '=', 'contacts.user_id')->get();
-        return view('resumes.test', compact('resumes'));
+        return view('resumes.list', compact('resumes'));
     }
 
     public function show(Resume $resume)
@@ -64,7 +44,7 @@ class ResumesController extends Controller
         ]);
 
         $attributes['level_id'] = Level::select('id')->where('name', request()->get('level_id'))->first()->id;
-//        $attributes['vacancy_id'] = Vacancy::select('id')->where('name', request()->get('vacancy_id'))->first()->id;
+        $attributes['vacancy_id'] = Vacancy::select('id')->where('name', request()->get('vacancy_id'))->first()->id;
 
         $resume->create($attributes);
 

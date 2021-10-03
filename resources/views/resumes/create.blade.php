@@ -16,7 +16,7 @@
         </select>
 
         <label for="vacancy_id">vacancy_id</label>
-        <select multiple class="form-control"  name="vacancy_id">
+        <select class="form-control"  name="vacancy_id">
             @foreach($vacancies as $vacancy)
                 <option>{{$vacancy->name}}</option>
             @endforeach

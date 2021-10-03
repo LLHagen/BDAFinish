@@ -36,6 +36,7 @@ class StatusesController extends Controller
             ->update($attributes);
         return back();
     }
+
     public function destroy($id)
     {
         Status::destroy($id);

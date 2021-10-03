@@ -20,14 +20,12 @@ Route::get('/', function () {
 Route::resource('resumes','ResumesController');
 
 
-Route::get('test', [\App\Http\Controllers\ResumesController::class, 'test']);
-
 // костыльный сидер сделать адекватно
 Route::get('spravka', [\App\Http\Controllers\ResumesController::class, 'seeder']);
 
 Route::group(['prefix'=>'levels'], function(){
     Route::get('/', [\App\Http\Controllers\LevelsController::class, 'create']);
-    Route::post('', [\App\Http\Controllers\LevelsController::class, 'store']);
+    Route::post('/', [\App\Http\Controllers\LevelsController::class, 'store']);
     Route::patch('/{id}', [\App\Http\Controllers\LevelsController::class, 'update']);
     Route::delete('/{id}', [\App\Http\Controllers\LevelsController::class, 'destroy']);
     Route::get('/{id}/edit', [\App\Http\Controllers\LevelsController::class, 'edit']);

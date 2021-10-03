@@ -36,9 +36,11 @@ class LevelsController extends Controller
         ->update($attributes);
         return back();
     }
+
     public function destroy($id)
     {
         Level::destroy($id);
         return back();
     }
+
 }

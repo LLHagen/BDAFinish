@@ -37,10 +37,12 @@ class VacanciesController extends Controller
             'name' => 'required',
             'description' => 'required',
         ]);
+        $attributes['isActive'] = (bool) request()->input('isActive', false);
         Vacancy::where('id', $id)
             ->update($attributes);
         return back();
     }
+
     public function destroy($id)
     {
         Vacancy::destroy($id);

@@ -7,6 +7,12 @@
         <input  class="form-control" type="text" name="name" placeholder="Vacancy" value="{{$vacancy->name}}">
         <label for="name">Description name</label>
         <input  class="form-control" type="text" name="description" placeholder="Description" value="{{$vacancy->description}}">
+
+
+
+        <label for="Active">Active</label>
+        <input type="checkbox" name="isActive" {{$vacancy->isActive ? "checked" : ""}}><br>
+
         <input type="submit" class="btn btn-primary mb-2" name="editVacancy"value="Edit Vacancy">
     </form>
     <x-links.link  href="/vacancies" name="vacancies" />
