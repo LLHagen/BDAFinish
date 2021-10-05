@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Level;
-use http\Env\Request;
+use Illuminate\Support\Facades\DB;
 
 class LevelsController extends Controller
 {
@@ -19,6 +19,13 @@ class LevelsController extends Controller
         $level = new Level();
         $level->create(['name'=>request()->get('name')]);
         return back();
+    }
+
+    public function getByAPI()
+    {
+        return DB::table('levels')
+            ->select(DB::raw('*'))
+            ->get();
     }
 
     public function edit($id)

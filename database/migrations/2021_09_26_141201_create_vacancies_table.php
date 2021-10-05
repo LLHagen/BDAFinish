@@ -16,7 +16,8 @@ class CreateVacanciesTable extends Migration
         Schema::create('vacancies', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name')->unique();;
-            $table->string('description');
+            $table->string('description')->nullable();
+            $table->boolean("isActive");
         });
     }
 

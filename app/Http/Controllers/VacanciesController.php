@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Vacancy;
-use http\Env\Request;
+use Illuminate\Support\Facades\DB;
 
 class VacanciesController extends Controller
 {
@@ -11,6 +11,13 @@ class VacanciesController extends Controller
     {
         $vacancies = Vacancy::get();
         return view('vacancies.create', compact('vacancies'));
+    }
+
+    public function getByAPI()
+    {
+        return DB::table('vacancies')
+            ->select(DB::raw('*'))
+            ->get();
     }
 
     public function store()

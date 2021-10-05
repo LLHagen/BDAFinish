@@ -39,6 +39,16 @@ class ResumesController extends Controller
         return view('resumes.test', compact('resumes'));
     }
 
+    public function getByAPI()
+    {
+        return DB::table('resumes')
+            ->select(DB::raw('*'))
+            ->join('levels', 'levels.id', '=', 'resumes.level_id')
+            ->join('statuses', 'statuses.id', '=', 'resumes.status_id')
+            ->join('vacancies', 'vacancies.id', '=', 'resumes.vacancy_id')
+            ->get();
+    }
+
     public function show(Resume $resume)
     {
         return view('resumes.show', compact('resume'));
@@ -95,11 +105,7 @@ class ResumesController extends Controller
 // костыльный сидер сделать адекватно
     public function seeder()
     {
-        DB::table('levels')->insert([
-            ['name' => 'Джун'],
-            ['name' => 'Мидл'],
-            ['name' => 'Синьор'],
-        ]);
+
         DB::table('statuses')->insert([
             ['name' => 'Ожидает'],
             ['name' => 'Рассмотрен'],
