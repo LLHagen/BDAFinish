@@ -46,3 +46,7 @@ Route::group(['prefix'=>'vacancies'], function(){
     Route::delete('/{id}', [\App\Http\Controllers\VacanciesController::class, 'destroy']);
     Route::get('/{id}/edit', [\App\Http\Controllers\VacanciesController::class, 'edit']);
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
