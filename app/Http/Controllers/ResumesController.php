@@ -59,16 +59,24 @@ class ResumesController extends Controller
 
     public function edit($id)
     {
+        $levels = Level::get();
+        $vacancies = Vacancy::get();
         $resume = Resume::find($id);
-        return view('resumes.edit', compact('resume'));
+        return view('resumes.edit', compact('resume','levels', 'vacancies'));
     }
 
     public function update(Resume $resume)
     {
         $attributes = request()->validate([
             'FIO' => 'required',
+            'email' => 'required',
+            'text' => 'required',
         ]);
+        $attributes['level_id'] = Level::select('id')->where('name', request()->get('level_id'))->first()->id;
+        $attributes['vacancy_id'] = Vacancy::select('id')->where('name', request()->get('vacancy_id'))->first()->id;
+
         $resume->update($attributes);
+
         return back();
     }
 

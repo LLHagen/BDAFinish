@@ -1,4 +1,16 @@
 <x-app>
+<x-slot name="head">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.tiny.cloud/1/cr3ykv765jjxs5y3h6797m6hj4gypjz1ylt54h62dc9wprt9/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+            selector: '#mytextarea',
+            statusbar: false,
+            branding: false
+        });
+    </script>
+</x-slot>
+
     <h2>Add resumes</h2>
     <br>
     <form class="form-group" action="/resumes" method="post">
@@ -23,12 +35,14 @@
         </select>
 
         <label for="text">Text Resume</label>
-        <textarea class="form-control" name="text" placeholder="text"></textarea>
+        <textarea id="mytextarea" class="form-control" name="text" placeholder="text"></textarea>
 
         <input type="submit" class="btn btn-primary mb-2" name="addResume"value="Add Resume">
+
     </form>
     <a href="/resumes">Назад</a>
 
 
     <x-alerts.errors />
+
 </x-app>

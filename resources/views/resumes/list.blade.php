@@ -7,7 +7,7 @@
         @foreach($resumes as $resume)
             <li class="nav-item">
                 <a class="btn link-secondary" href="/resumes/{{$resume->id}}">
-                    id-{{$resume->id}} || text-{{$resume->text}} ||  FIO-{{$resume->FIO}} ||  level-{{$resume->level}}   ||
+                    id-{{$resume->id}} ||  FIO-{{$resume->FIO}} ||  level-{{$resume->level}}   ||
                 </a>
                 <a href="/resumes/{{$resume->id}}/edit" class="btn btn-outline-primary btn-sm" type="button">edit</a>
 
