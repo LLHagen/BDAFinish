@@ -15,18 +15,22 @@
 
     <title>{{ !empty($title) ? $title : env('APP_NAME') }}</title>
     <style>
-        footer {
-            background-color: rgba(248,249,250)!important;
-            position: relative;
-            bottom: 0;
-            left: 0;
-            right: 0;
+        body {
+            font-family: DejaVu Sans, sans-serif;
         }
+
+        /*footer {*/
+        /*    background-color: rgba(248,249,250)!important;*/
+        /*    position: relative;*/
+        /*    bottom: 0;*/
+        /*    left: 0;*/
+        /*    right: 0;*/
+        /*}*/
     </style>
 </head>
 <body>
 
-<x-header />
+{{--<x-header />--}}
 
     <main>
 
@@ -44,10 +48,10 @@
 
     </main>
 
-    <footer class="text-muted py-5">
-        <div class="container">
-            <p class="mb-1">{{ env('APP_NAME') }}&copy; </p>
-        </div>
-    </footer>
+{{--    <footer class="text-muted py-5">--}}
+{{--        <div class="container">--}}
+{{--            <p class="mb-1">{{ env('APP_NAME') }}&copy; </p>--}}
+{{--        </div>--}}
+{{--    </footer>--}}
 </body>
 </html>

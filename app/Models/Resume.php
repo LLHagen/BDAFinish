@@ -16,8 +16,13 @@ class Resume extends Model
         return $this->belongsTo(Level::class);
     }
 
-    public function vacansy()
+    public function vacancy()
     {
         return $this->belongsTo(Vacancy::class);
+    }
+
+    public function status()
+    {
+        return $this->belongsTo(Status::class);
     }
 }

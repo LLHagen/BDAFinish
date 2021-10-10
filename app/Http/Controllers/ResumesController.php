@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Resume;
 use App\Models\Level;
+use App\Models\Status;
 use App\Models\Vacancy;
+use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -12,16 +14,44 @@ class ResumesController extends Controller
 {
     public function index()
     {
-        $resumes = DB::table('resumes')
+        $resumes =  DB::table('resumes')
             ->join('levels', 'levels.id', '=', 'resumes.level_id')
-            ->select('resumes.*', 'levels.name as level')
+            ->join('vacancies', 'vacancies.id', '=', 'resumes.vacancy_id')
+            ->join('statuses', 'statuses.id', '=', 'resumes.status_id')
+            ->select('resumes.*', 'levels.name as level', 'vacancies.name as vacancy', 'statuses.name as status')
             ->get();
-        return view('resumes.list', compact('resumes'));
+
+        $statuses = Status::get();
+        return view('resumes.list', compact('resumes','statuses'));
     }
+
+    public function indexPDF()
+    {
+        $resumes =  DB::table('resumes')
+            ->join('levels', 'levels.id', '=', 'resumes.level_id')
+            ->join('vacancies', 'vacancies.id', '=', 'resumes.vacancy_id')
+            ->join('statuses', 'statuses.id', '=', 'resumes.status_id')
+            ->select('resumes.*', 'levels.name as level', 'vacancies.name as vacancy', 'statuses.name as status')
+            ->get();
+
+        $statuses = Status::get();
+        return view('resumes.pdfexample', compact('resumes','statuses'));
+    }
+
 
     public function show(Resume $resume)
     {
-        return view('resumes.show', compact('resume'));
+//        $resume =  DB::table('resumes')
+//
+//            ->where('resumes.id', $resume->id)
+//            ->join('levels', 'levels.id', '=', 'resumes.level_id')
+//            ->join('vacancies', 'vacancies.id', '=', 'resumes.vacancy_id')
+//            ->select('resumes.*', 'levels.name as level', 'vacancies.name as vacancy')
+//            >first();
+//
+//        dd($resume);
+
+        return view('resumes.show', compact('resume',));
     }
 
     public function create()
@@ -31,10 +61,24 @@ class ResumesController extends Controller
         return view('resumes.create', compact('levels'), compact('vacancies'));
     }
 
+    // Generate PDF
+    public function createPDF() {
+        $data = DB::table('resumes')
+            ->join('levels', 'levels.id', '=', 'resumes.level_id')
+            ->join('vacancies', 'vacancies.id', '=', 'resumes.vacancy_id')
+            ->select('resumes.*', 'levels.name as level', 'vacancies.name as vacancy')
+            ->get();
+
+
+        view()->share('resumes',$data);
+        $pdf = PDF::loadView('resumes.pdfexample', $data);
+
+        return $pdf->download('pdf_file.pdf');
+    }
+
     public function store(Request $request)
     {
 
-//        dd(request()->get('text'), request()->all());
         $resume = new Resume();
 
         $attributes = request()->validate([
@@ -42,9 +86,9 @@ class ResumesController extends Controller
             'email' => 'required',
             'text' => 'required',
         ]);
-
         $attributes['level_id'] = Level::select('id')->where('name', request()->get('level_id'))->first()->id;
         $attributes['vacancy_id'] = Vacancy::select('id')->where('name', request()->get('vacancy_id'))->first()->id;
+//        $attributes['status_id'] = Status::select('id')->where('name', request()->get('status_id'))->first()->id;
 
         $resume->create($attributes);
 
@@ -63,6 +107,23 @@ class ResumesController extends Controller
         $vacancies = Vacancy::get();
         $resume = Resume::find($id);
         return view('resumes.edit', compact('resume','levels', 'vacancies'));
+    }
+
+    public function statusUpdate(Request $request)
+    {
+        $resume = Resume::find($request->resume);
+        $statusId = Status::where('name', $request->status)->first()->id;
+        $resume->status_id = $statusId;
+
+        return $resume->save();
+    }
+
+    public function interviewUpdate (Request $request)
+    {
+        $resume = Resume::find($request->resume);
+        $resume->interview_date = $request->date;
+
+        return $resume->save();
     }
 
     public function update(Resume $resume)

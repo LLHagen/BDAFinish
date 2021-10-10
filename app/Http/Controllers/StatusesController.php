@@ -7,7 +7,7 @@ use http\Env\Request;
 
 class StatusesController extends Controller
 {
-    public function create()
+    public function index()
     {
         $statuses = Status::get();
         return view('statuses.create', compact('statuses'));

@@ -7,7 +7,7 @@ use http\Env\Request;
 
 class LevelsController extends Controller
 {
-    public function create()
+    public function index()
     {
         $levels = Level::get();
         return view('levels.create', compact('levels'));

@@ -18,7 +18,7 @@ class CreateResumesTable extends Migration
         $table->string('FIO');
         $table->string('email');
         $table->text('text');
-        $table->date('interview_date')->nullable();
+        $table->dateTime('interview_date')->nullable();
         $table->unsignedInteger('level_id')->nullable();
         $table->unsignedInteger('vacancy_id')->nullable();
         $table->unsignedInteger('status_id')->default(1)->nullable();

@@ -7,7 +7,7 @@ use http\Env\Request;
 
 class VacanciesController extends Controller
 {
-    public function create()
+    public function index()
     {
         $vacancies = Vacancy::get();
         return view('vacancies.create', compact('vacancies'));
