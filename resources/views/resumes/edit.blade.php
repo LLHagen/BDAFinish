@@ -4,56 +4,15 @@
         <script src="https://cdn.tiny.cloud/1/cr3ykv765jjxs5y3h6797m6hj4gypjz1ylt54h62dc9wprt9/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
         <script>
             tinymce.init({
-                selector: '#skills',
-                statusbar: false,
-                branding: false,
-                mode : "textareas",
-                width : "100%",
-                height : "400",
-                plugin_preview_width : "100%",
-                plugin_preview_height : "600",
-                setup: function (editor) {
-                    editor.on('init', function (e) {
-                        //this gets executed AFTER TinyMCE is fully initialized
-                        editor.setContent('{!!     str_replace(array("\r\n", "\r", "\n"), '', htmlspecialchars_decode($resume->skills))  !!}');
-                    });
-                }
-            });
-
-            tinymce.init({
-                selector: '#resume',
+                selector: ".editor",
                 statusbar: false,
                 branding: false,
                 width : "100%",
                 height : "400",
                 plugin_preview_width : "100%",
                 plugin_preview_height : "600",
-                setup: function (editor) {
-                    editor.on('init', function (e) {
-                        editor.setContent('{!! $resume->resume_encoded !!}');
-                    });
-                }
+                theme_advanced_resizing : true,
             });
-
-            tinymce.init({
-                selector: '#experience',
-                statusbar: false,
-                branding: false,
-                mode : "textareas",
-                width : "100%",
-                height : "400",
-                plugin_preview_width : "100%",
-                plugin_preview_height : "600",
-                setup: function (editor) {
-                    editor.on('init', function (e) {
-                        //this gets executed AFTER TinyMCE is fully initialized
-                        editor.setContent('{!!     str_replace(array("\r\n", "\r", "\n"), '', htmlspecialchars_decode($resume->experience))  !!}');
-                    });
-                }
-            });
-
-
-
         </script>
     </x-slot>
 
@@ -97,13 +56,13 @@
         </select>
 
         <label for="skills">Skills</label>
-        <textarea id="skills" class="form-control" name="skills" placeholder="skills"></textarea>
+        <textarea id="skills" class="form-control editor" name="skills" placeholder="skills"></textarea>
 
         <label for="resume">Resume</label>
-        <textarea id="resume" class="form-control" name="resume" placeholder="resume"></textarea>
+        <textarea id="resume" class="form-control editor" name="resume" placeholder="resume">{!! $resume->resume !!}</textarea>
 
         <label for="text">Experience</label>
-        <textarea id="experience" class="form-control" name="experience" placeholder="experience"></textarea>
+        <textarea id="experience" class="form-control editor" name="experience" placeholder="experience"></textarea>
 
         <br>
         <a href="/resumes"  class="btn btn-outline-primary btn-sm" type="button">Назад</a>
