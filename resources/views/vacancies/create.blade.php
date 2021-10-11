@@ -15,18 +15,9 @@
             <ul>
                 @foreach($vacancies as $vacancy)
                     <li>
-                        {{$vacancy->name}}
+                        {{$vacancy->name}}  {{$vacancy->isActive ? "(activ)" : ""}}
                         <a href="/vacancies/{{$vacancy->id}}/edit" class="btn btn-outline-primary btn-sm" type="button">edit</a>
-                        <form class="form-group d-inline" action="/vacancies/{{$vacancy->id}}" method="post">
-                            @csrf
-                            @method('delete')
-                            <input
-                                class="btn btn-outline-primary btn-sm"
-                                type="submit"
-                                name="delete"
-                                value="&times;">
-                            <br>
-                        </form>
+                        <x-forms.delete action="/vacancies/{{$vacancy->id}}" />
                     </li>
                 @endforeach
             </ul>

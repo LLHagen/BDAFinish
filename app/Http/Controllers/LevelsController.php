@@ -7,7 +7,7 @@ use http\Env\Request;
 
 class LevelsController extends Controller
 {
-    public function create()
+    public function index()
     {
         $levels = Level::get();
         return view('levels.create', compact('levels'));
@@ -36,9 +36,11 @@ class LevelsController extends Controller
         ->update($attributes);
         return back();
     }
+
     public function destroy($id)
     {
         Level::destroy($id);
         return back();
     }
+
 }

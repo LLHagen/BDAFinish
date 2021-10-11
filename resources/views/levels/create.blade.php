@@ -15,16 +15,7 @@
                     <li>
                         {{$level->name}}
                         <a href="/levels/{{$level->id}}/edit" class="btn btn-outline-primary btn-sm" type="button">edit</a>
-                        <form class="form-group d-inline" action="/levels/{{$level->id}}" method="post">
-                            @csrf
-                            @method('delete')
-                            <input
-                                class="btn btn-outline-primary btn-sm"
-                                type="submit"
-                                name="delete"
-                                value="&times;">
-                            <br>
-                        </form>
+                        <x-forms.delete action="/levels/{{$level->id}}" />
                     </li>
                 @endforeach
             </ul>

@@ -15,16 +15,7 @@
                     <li>
                         {{$status->name}}
                         <a href="/statuses/{{$status->id}}/edit" class="btn btn-outline-primary btn-sm" type="button">edit</a>
-                        <form class="form-group d-inline" action="/statuses/{{$status->id}}" method="post">
-                            @csrf
-                            @method('delete')
-                            <input
-                                class="btn btn-outline-primary btn-sm"
-                                type="submit"
-                                name="delete"
-                                value="&times;">
-                            <br>
-                        </form>
+                        <x-forms.delete action="/statuses/{{$status->id}}" />
                     </li>
                 @endforeach
             </ul>
