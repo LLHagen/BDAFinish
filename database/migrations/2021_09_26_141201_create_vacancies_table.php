@@ -16,8 +16,13 @@ class CreateVacanciesTable extends Migration
         Schema::create('vacancies', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name')->unique();;
+<<<<<<< HEAD
             $table->string('description');
 //            $table->boolean('isActive')->default(true);
+=======
+            $table->string('description')->nullable();
+            $table->boolean("isActive");
+>>>>>>> 1fa2044db874a0690dd237c80cd9f3e95772f17d
         });
     }
 

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Status;
-use http\Env\Request;
+use Illuminate\Support\Facades\DB;
 
 class StatusesController extends Controller
 {
@@ -11,6 +11,13 @@ class StatusesController extends Controller
     {
         $statuses = Status::get();
         return view('statuses.create', compact('statuses'));
+    }
+
+    public function getByAPI()
+    {
+        return DB::table('statuses')
+            ->select(DB::raw('*'))
+            ->get();
     }
 
     public function store()

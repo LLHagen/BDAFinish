@@ -26,6 +26,16 @@ class ResumesController extends Controller
         return view('resumes.list', compact('resumes', 'statuses'));
     }
 
+    public function getByAPI()
+    {
+        return DB::table('resumes')
+            ->select(DB::raw('*'))
+            ->join('levels', 'levels.id', '=', 'resumes.level_id')
+            ->join('statuses', 'statuses.id', '=', 'resumes.status_id')
+            ->join('vacancies', 'vacancies.id', '=', 'resumes.vacancy_id')
+            ->get();
+    }
+
     public function show(Resume $resume)
     {
         return view('resumes.show', compact('resume',));
@@ -94,11 +104,51 @@ class ResumesController extends Controller
 
     public function interviewUpdate(Request $request)
     {
+<<<<<<< HEAD
         $resume = Resume::find($request->resume);
         $resume->interview_date = $request->date;
 
         return $resume->save();
     }
+=======
+
+        DB::table('statuses')->insert([
+            ['name' => 'Ожидает'],
+            ['name' => 'Рассмотрен'],
+            ['name' => 'Одобрен'],
+        ]);
+        DB::table('vacancies')->insert([
+            [
+                'name' => 'PHP Разработчик',
+                'description' => 'PHP Разработчик description'
+            ],
+            [
+                'name' => 'Тестировщик',
+                'description' => 'Тестировщик description'
+            ],
+            [
+                'name' => 'Верстальщик',
+                'description' => 'Верстальщик description'
+            ],
+        ]);
+
+        DB::table('resumes')->insert([
+            [
+                'FIO' => 'Иванов Иван Иванович',
+                'email' => 'igot-smirnov-94@mail.ru',
+                'text' => 'Резюме текст',
+                'status_id' => 1,
+                'level_id' => 1,
+            ],
+            [
+                'FIO' => 'Петров Петр Петрович',
+                'email' => 'igot-smirnov-94@mail.ru',
+                'text' => 'Резюме текст',
+                'status_id' => 2,
+                'level_id' => 1,
+            ],
+        ]);
+>>>>>>> 1fa2044db874a0690dd237c80cd9f3e95772f17d
 
     public function update(Resume $resume)
     {
