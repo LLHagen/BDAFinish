@@ -27,7 +27,7 @@ class ResumesController extends Controller
 
     public function show(Resume $resume)
     {
-        return view('resumes.pdf', compact('resume',));
+        return view('resumes.show', compact('resume',));
     }
 
     public function create()
@@ -50,7 +50,9 @@ class ResumesController extends Controller
         $attributes = request()->validate([
             'FIO' => 'required',
             'email' => 'required',
-            'text' => 'required',
+            'resume' => 'required',
+            'skills' => 'sometimes',
+            'experience' => 'sometimes',
         ]);
         $attributes['level_id'] = Level::select('id')->where('name', request()->get('level_id'))->first()->id;
         $attributes['vacancy_id'] = Vacancy::select('id')->where('name', request()->get('vacancy_id'))->first()->id;
@@ -97,7 +99,9 @@ class ResumesController extends Controller
         $attributes = request()->validate([
             'FIO' => 'required',
             'email' => 'required',
-            'text' => 'required',
+            'resume' => 'required',
+            'skills' => 'sometimes',
+            'experience' => 'sometimes',
         ]);
         $attributes['level_id'] = Level::select('id')->where('name', request()->get('level_id'))->first()->id;
         $attributes['vacancy_id'] = Vacancy::select('id')->where('name', request()->get('vacancy_id'))->first()->id;
@@ -105,52 +109,5 @@ class ResumesController extends Controller
         $resume->update($attributes);
 
         return back();
-    }
-
-// костыльный сидер сделать адекватно
-    public function seeder()
-    {
-        DB::table('levels')->insert([
-            ['name' => 'Джун'],
-            ['name' => 'Мидл'],
-            ['name' => 'Синьор'],
-        ]);
-        DB::table('statuses')->insert([
-            ['name' => 'Ожидает'],
-            ['name' => 'Рассмотрен'],
-            ['name' => 'Одобрен'],
-        ]);
-        DB::table('vacancies')->insert([
-            [
-                'name' => 'PHP Разработчик',
-                'description' => 'PHP Разработчик description'
-            ],
-            [
-                'name' => 'Тестировщик',
-                'description' => 'Тестировщик description'
-            ],
-            [
-                'name' => 'Верстальщик',
-                'description' => 'Верстальщик description'
-            ],
-        ]);
-
-        DB::table('resumes')->insert([
-            [
-                'FIO' => 'Иванов Иван Иванович',
-                'email' => 'igot-smirnov-94@mail.ru',
-                'text' => 'Резюме текст',
-                'status_id' => 1,
-                'level_id' => 1,
-            ],
-            [
-                'FIO' => 'Петров Петр Петрович',
-                'email' => 'igot-smirnov-94@mail.ru',
-                'text' => 'Резюме текст',
-                'status_id' => 2,
-                'level_id' => 1,
-            ],
-        ]);
-
     }
 }

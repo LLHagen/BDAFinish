@@ -3,28 +3,67 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="https://cdn.tiny.cloud/1/cr3ykv765jjxs5y3h6797m6hj4gypjz1ylt54h62dc9wprt9/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
         <script>
-
             tinymce.init({
-                selector: '#mytextarea',
+                selector: '#skills',
                 statusbar: false,
                 branding: false,
                 mode : "textareas",
                 width : "100%",
-                height : "800",
+                height : "400",
                 plugin_preview_width : "100%",
                 plugin_preview_height : "600",
                 setup: function (editor) {
                     editor.on('init', function (e) {
                         //this gets executed AFTER TinyMCE is fully initialized
-                        editor.setContent('{!!     str_replace(array("\r\n", "\r", "\n"), '', htmlspecialchars_decode($resume->text))  !!}');
+                        editor.setContent('{!!     str_replace(array("\r\n", "\r", "\n"), '', htmlspecialchars_decode($resume->skills))  !!}');
                     });
                 }
             });
+
+            tinymce.init({
+                selector: '#resume',
+                statusbar: false,
+                branding: false,
+                width : "100%",
+                height : "400",
+                plugin_preview_width : "100%",
+                plugin_preview_height : "600",
+                setup: function (editor) {
+                    editor.on('init', function (e) {
+                        editor.setContent('{!!     str_replace(array("\r\n", "\r", "\n"), '', htmlspecialchars_decode(quotemeta($resume->resume)))  !!}');
+                    });
+                }
+            });
+
+            tinymce.init({
+                selector: '#experience',
+                statusbar: false,
+                branding: false,
+                mode : "textareas",
+                width : "100%",
+                height : "400",
+                plugin_preview_width : "100%",
+                plugin_preview_height : "600",
+                setup: function (editor) {
+                    editor.on('init', function (e) {
+                        //this gets executed AFTER TinyMCE is fully initialized
+                        editor.setContent('{!!     str_replace(array("\r\n", "\r", "\n"), '', htmlspecialchars_decode($resume->experience))  !!}');
+                    });
+                }
+            });
+
+
+
         </script>
     </x-slot>
 
-    <h2>Add resumes</h2>
+    <h2>Edit resumes</h2>
     <br>
+
+    {!! $resume->resume !!}
+
+
+
     <form action="/resumes/{{ $resume->id }}" method="post">
         @csrf
         @method('patch')
@@ -57,12 +96,22 @@
             @endforeach
         </select>
 
-        <label for="text">Text Resume</label>
-        <textarea id="mytextarea" class="form-control" name="text" placeholder="text">
-        </textarea>
+        <label for="skills">Skills</label>
+        <textarea id="skills" class="form-control" name="skills" placeholder="skills"></textarea>
 
-        <input type="submit"  class="btn btn-primary mb-2"  name="updateResume" value="Изменить Resume">
+        <label for="resume">Resume</label>
+        <textarea id="resume" class="form-control" name="resume" placeholder="resume"></textarea>
+
+        <label for="text">Experience</label>
+        <textarea id="experience" class="form-control" name="experience" placeholder="experience"></textarea>
+
+        <br>
+        <a href="/resumes"  class="btn btn-outline-primary btn-sm" type="button">Назад</a>
+        <input type="submit"  class="btn btn-outline-primary btn-sm"  name="updateResume" value="Изменить Resume">
+        <a href="/resumes/pdf/{{ $resume->id }}"  class="btn btn-outline-primary btn-sm" type="button">
+            <img src="{{ '/icon/download.svg' }}" alt="edit" />
+        </a>
     </form>
-    <a href="/resumes"  class="btn btn-outline-primary btn-sm" type="button">Назад</a>
+
     <x-alerts.errors />
 </x-app>
