@@ -30,7 +30,7 @@
                 plugin_preview_height : "600",
                 setup: function (editor) {
                     editor.on('init', function (e) {
-                        editor.setContent('{!!     str_replace(array("\r\n", "\r", "\n"), '', htmlspecialchars_decode(quotemeta($resume->resume)))  !!}');
+                        editor.setContent('{!! $resume->resume_encoded !!}');
                     });
                 }
             });

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Resume extends Model
 {
     use HasFactory;
+
     protected $table = 'resumes';
     protected $guarded = [];
 
@@ -24,5 +25,15 @@ class Resume extends Model
     public function status()
     {
         return $this->belongsTo(Status::class);
+    }
+
+    public function getResumeEncodedAttribute()
+    {
+        return str_replace(
+            ["\r\n", "\r", "\n"],
+            '<br>',
+            htmlspecialchars_decode(addslashes($this->resume)
+            )
+        );
     }
 }
