@@ -12,46 +12,24 @@
 
     {{ !empty($head) ? $head : '' }}
 
-
     <title>{{ !empty($title) ? $title : env('APP_NAME') }}</title>
     <style>
         body {
             font-family: DejaVu Sans, sans-serif;
         }
-
-        /*footer {*/
-        /*    background-color: rgba(248,249,250)!important;*/
-        /*    position: relative;*/
-        /*    bottom: 0;*/
-        /*    left: 0;*/
-        /*    right: 0;*/
-        /*}*/
     </style>
 </head>
 <body>
-
-{{--<x-header />--}}
-
     <main>
-
         <div class="album py-5">
             <div class="container">
                 <div class="row row-cols-1 row-cols-sm-12">
                     <div class="col">
-
                         {{ $slot }}
-
                     </div>
                 </div>
             </div>
         </div>
-
     </main>
-
-{{--    <footer class="text-muted py-5">--}}
-{{--        <div class="container">--}}
-{{--            <p class="mb-1">{{ env('APP_NAME') }}&copy; </p>--}}
-{{--        </div>--}}
-{{--    </footer>--}}
 </body>
 </html>

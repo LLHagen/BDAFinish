@@ -17,12 +17,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/pdf', [\App\Http\Controllers\ResumesController::class, 'indexPDF']);
+//Route::get('/pdf', [\App\Http\Controllers\ResumesController::class, 'indexPDF']);
+
 
 
 Route::patch('/resumes/status', [\App\Http\Controllers\ResumesController::class, 'statusUpdate']);
 Route::patch('/resumes/interview', [\App\Http\Controllers\ResumesController::class, 'interviewUpdate']);
 Route::get('/resumes/pdf/{id}', [\App\Http\Controllers\ResumesController::class, 'createPDF']);
+
 Route::resource('resumes','ResumesController');
 
 
@@ -33,14 +35,6 @@ Route::resource('vacancies','VacanciesController');
 
 // костыльный сидер сделать адекватно
 Route::get('spravka', [\App\Http\Controllers\ResumesController::class, 'seeder']);
-
-
-
-
-
-
-
-
 
 
 

@@ -6,7 +6,12 @@
         tinymce.init({
             selector: '#mytextarea',
             statusbar: false,
-            branding: false
+            branding: false,
+            mode : "textareas",
+            width : "100%",
+            height : "800",
+            plugin_preview_width : "100%",
+            plugin_preview_height : "600",
         });
     </script>
 </x-slot>

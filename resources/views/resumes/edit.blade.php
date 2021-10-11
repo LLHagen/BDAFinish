@@ -8,6 +8,11 @@
                 selector: '#mytextarea',
                 statusbar: false,
                 branding: false,
+                mode : "textareas",
+                width : "100%",
+                height : "800",
+                plugin_preview_width : "100%",
+                plugin_preview_height : "600",
                 setup: function (editor) {
                     editor.on('init', function (e) {
                         //this gets executed AFTER TinyMCE is fully initialized

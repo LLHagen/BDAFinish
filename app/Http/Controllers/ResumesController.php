@@ -25,33 +25,9 @@ class ResumesController extends Controller
         return view('resumes.list', compact('resumes','statuses'));
     }
 
-    public function indexPDF()
-    {
-        $resumes =  DB::table('resumes')
-            ->join('levels', 'levels.id', '=', 'resumes.level_id')
-            ->join('vacancies', 'vacancies.id', '=', 'resumes.vacancy_id')
-            ->join('statuses', 'statuses.id', '=', 'resumes.status_id')
-            ->select('resumes.*', 'levels.name as level', 'vacancies.name as vacancy', 'statuses.name as status')
-            ->get();
-
-        $statuses = Status::get();
-        return view('resumes.pdfexample', compact('resumes','statuses'));
-    }
-
-
     public function show(Resume $resume)
     {
-//        $resume =  DB::table('resumes')
-//
-//            ->where('resumes.id', $resume->id)
-//            ->join('levels', 'levels.id', '=', 'resumes.level_id')
-//            ->join('vacancies', 'vacancies.id', '=', 'resumes.vacancy_id')
-//            ->select('resumes.*', 'levels.name as level', 'vacancies.name as vacancy')
-//            >first();
-//
-//        dd($resume);
-
-        return view('resumes.show', compact('resume',));
+        return view('resumes.pdf', compact('resume',));
     }
 
     public function create()
@@ -61,26 +37,16 @@ class ResumesController extends Controller
         return view('resumes.create', compact('levels'), compact('vacancies'));
     }
 
-    // Generate PDF
-    public function createPDF() {
-        $data = DB::table('resumes')
-            ->join('levels', 'levels.id', '=', 'resumes.level_id')
-            ->join('vacancies', 'vacancies.id', '=', 'resumes.vacancy_id')
-            ->select('resumes.*', 'levels.name as level', 'vacancies.name as vacancy')
-            ->get();
-
-
-        view()->share('resumes',$data);
-        $pdf = PDF::loadView('resumes.pdfexample', $data);
-
+    public function createPDF($id)
+    {
+        $resume = Resume::find($id);
+        $pdf = PDF::loadView('resumes.pdf',  compact('resume'));
         return $pdf->download('pdf_file.pdf');
     }
 
     public function store(Request $request)
     {
-
         $resume = new Resume();
-
         $attributes = request()->validate([
             'FIO' => 'required',
             'email' => 'required',
@@ -88,7 +54,6 @@ class ResumesController extends Controller
         ]);
         $attributes['level_id'] = Level::select('id')->where('name', request()->get('level_id'))->first()->id;
         $attributes['vacancy_id'] = Vacancy::select('id')->where('name', request()->get('vacancy_id'))->first()->id;
-//        $attributes['status_id'] = Status::select('id')->where('name', request()->get('status_id'))->first()->id;
 
         $resume->create($attributes);
 
@@ -106,6 +71,7 @@ class ResumesController extends Controller
         $levels = Level::get();
         $vacancies = Vacancy::get();
         $resume = Resume::find($id);
+
         return view('resumes.edit', compact('resume','levels', 'vacancies'));
     }
 
