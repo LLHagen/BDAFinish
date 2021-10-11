@@ -17,7 +17,7 @@ class CreateVacanciesTable extends Migration
             $table->increments('id');
             $table->string('name')->unique();;
             $table->string('description');
-            $table->boolean('isActive')->default(true);
+//            $table->boolean('isActive')->default(true);
         });
     }
 
