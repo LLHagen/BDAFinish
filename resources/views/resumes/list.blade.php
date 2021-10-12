@@ -27,8 +27,8 @@
                     <th scope="row" class="resume-id" name="id">{{ $resume->id }}</th>
                     <td>{{ $resume->FIO }}</td>
                     <td>{{ $resume->email }}</td>
-                    <td>{{ $resume->level }}</td>
-                    <td>{{ $resume->vacancy }}</td>
+                    <td>{{ $resume->level->name }}</td>
+                    <td>{{ $resume->vacancy->name }}</td>
                     <td>        <select class="form-control" name="status_id">
                             @foreach($statuses as $status)
                                 <option

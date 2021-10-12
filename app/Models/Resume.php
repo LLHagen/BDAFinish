@@ -12,6 +12,10 @@ class Resume extends Model
     protected $table = 'resumes';
     public $timestamps = false; // Для чего мы его вообще оставили?
     protected $guarded = [];
+    protected $dates = [
+        'interview_date'
+    ];
+    protected $appends = ['interview_date_formatted'];
 
     public function level()
     {
@@ -36,5 +40,9 @@ class Resume extends Model
             htmlspecialchars_decode(addslashes($this->resume)
             )
         );
+    }
+
+    public function getInterviewDateFormattedAttribute(){
+        return $this->interview_date ? $this->interview_date->format('d-m-Y H:i') : null;
     }
 }

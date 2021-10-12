@@ -14,7 +14,7 @@ class ResumesController extends Controller
 {
     public function index()
     {
-        $resumes = $this->get();
+        $resumes = Resume::all();
 
         $statuses = Status::get();
 
@@ -114,6 +114,9 @@ class ResumesController extends Controller
     }
 
     /* --- Для React --- */ //TODO: refactor
+    /**
+     * @deprecated Не стоит делать сырые выборки, потому что это делает код хрупким
+     */
     public function get()
     {
         return DB::table('resumes')
