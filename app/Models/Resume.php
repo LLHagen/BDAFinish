@@ -10,6 +10,7 @@ class Resume extends Model
     use HasFactory;
 
     protected $table = 'resumes';
+    public $timestamps = false; // Для чего мы его вообще оставили?
     protected $guarded = [];
 
     public function level()

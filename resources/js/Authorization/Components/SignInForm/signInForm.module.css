@@ -1,0 +1,42 @@
+.wrapper {
+	height: 100vh;
+	width: 70%;
+	margin: 0 auto;
+}
+
+.inputForm{
+	background: white;
+}
+
+.inputForm {
+	border: 1px solid #bbe6ff;
+}
+
+.formGroup {
+	margin: 10px;
+}
+
+.formGroup label {
+	padding-top: 10px;
+	padding-bottom: 10px;
+	font-size: 1.05em;
+}
+
+.buttons {
+	margin: 10px;
+	margin-bottom: 15px;
+}
+
+.btn {
+	margin: 10px;
+	
+}
+
+.checkboxBlock {
+	padding: 5px;
+	padding-left: 10px;
+}
+
+.checkboxBlock label{
+	padding-left: 10px;
+}

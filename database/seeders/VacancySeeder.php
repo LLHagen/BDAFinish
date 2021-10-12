@@ -18,17 +18,17 @@ class VacancySeeder extends Seeder
             [
                 'name' => 'PHP Разработчик',
                 'description' => 'PHP Разработчик description',
-//                'isActive' => true
+                'isActive' => true
             ],
             [
                 'name' => 'Тестировщик',
                 'description' => 'Тестировщик description',
-//                'isActive' => true
+                'isActive' => true
             ],
             [
                 'name' => 'Верстальщик',
                 'description' => 'Верстальщик description',
-//                'isActive' => false
+                'isActive' => false
             ],
         ]);
     }

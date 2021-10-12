@@ -18,21 +18,23 @@ class ResumeSeeder extends Seeder
             [
                 'FIO' => 'Иванов Иван Иванович',
                 'email' => 'igot-smirnov-94@mail.ru',
-                'resume' => 'Резюме текст',
+                'text' => 'Резюме текст',
                 'status_id' => 1,
-                'vacancy_id' => 1,
                 'level_id' => 1,
-                'interview_date' => null,
-            ],
-            [
-                'FIO' => 'Иванов Иван Иванович',
-                'email' => 'igot-smirnov-94@mail.ru',
-                'resume' => 'Резюме текст',
-                'status_id' => 1,
                 'vacancy_id' => 1,
-                'level_id' => 1,
-                'interview_date' => '2021-10-05 17:26',
             ]
         ]);
+        DB::table('resumes')->insert([
+            [
+                'FIO' => 'Петров Петр Петрович',
+                'email' => 'igot-smirnov-94@mail.ru',
+                'text' => 'Резюме текст',
+                'status_id' => 2,
+                'level_id' => 1,
+                'interview_date' => '2021-10-06',
+                'vacancy_id' => 2,
+            ],
+        ]);
+
     }
 }
