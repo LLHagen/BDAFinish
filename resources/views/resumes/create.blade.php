@@ -4,38 +4,15 @@
     <script src="https://cdn.tiny.cloud/1/cr3ykv765jjxs5y3h6797m6hj4gypjz1ylt54h62dc9wprt9/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
     <script>
         tinymce.init({
-            selector: '#resume',
+            selector: ".editor",
             statusbar: false,
             branding: false,
-            mode : "textareas",
             width : "100%",
-            height : "800",
+            height : "400",
             plugin_preview_width : "100%",
             plugin_preview_height : "600",
+            theme_advanced_resizing : true,
         });
-
-        tinymce.init({
-            selector: '#skills',
-            statusbar: false,
-            branding: false,
-            mode : "textareas",
-            width : "100%",
-            height : "400",
-            plugin_preview_width : "100%",
-            plugin_preview_height : "300"
-        });
-
-        tinymce.init({
-            selector: '#experience',
-            statusbar: false,
-            branding: false,
-            mode : "textareas",
-            width : "100%",
-            height : "400",
-            plugin_preview_width : "100%",
-            plugin_preview_height : "300",
-        });
-
     </script>
 </x-slot>
 
@@ -63,13 +40,13 @@
         </select>
 
         <label for="text">Skills</label>
-        <textarea id="skills" class="form-control" name="skills" placeholder="skills"></textarea>
-
-        <label for="text">Experience</label>
-        <textarea id="experience" class="form-control" name="experience" placeholder="experience"></textarea>
+        <textarea id="skills"  class="form-control editor"  name="skills" placeholder="skills"></textarea>
 
         <label for="text">Resume</label>
-        <textarea id="resume" class="form-control" name="resume" placeholder="resume"></textarea>
+        <textarea id="resume"  class="form-control editor"  name="resume" placeholder="resume"></textarea>
+
+        <label for="text">Experience</label>
+        <textarea id="experience"  class="form-control editor"  name="experience" placeholder="experience"></textarea>
 
         <br>
         <input type="submit" class="btn btn-primary mb-2" name="addResume"value="Add Resume">

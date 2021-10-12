@@ -53,12 +53,12 @@ class ResumesController extends Controller
     {
         $resume = new Resume();
         $attributes = request()->validate([
-                                              'FIO'        => 'required',
-                                              'email'      => 'required',
-                                              'resume'     => 'required',
-                                              'skills'     => 'sometimes',
-                                              'experience' => 'sometimes',
-                                          ]);
+            'FIO'        => 'required',
+            'email'      => 'required',
+            'resume'     => 'required',
+            'skills'     => 'sometimes',
+            'experience' => 'sometimes',
+        ]);
         $attributes['level_id'] = Level::select('id')->where('name', request()->get('level_id'))->first()->id;
         $attributes['vacancy_id'] = Vacancy::select('id')->where('name', request()->get('vacancy_id'))->first()->id;
 
