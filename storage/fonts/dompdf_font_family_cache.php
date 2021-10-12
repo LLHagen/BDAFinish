@@ -80,4 +80,7 @@
   'nunito' => array(
     'normal' => $fontDir . '/nunito_normal_7173294b894229c46ad1835001660d90',
   ),
+  'arial' => array(
+    'normal' => $fontDir . '/arial_normal_499a9e3997693a486b35bf78fd03b160',
+  ),
 ) ?>

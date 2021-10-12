@@ -16,7 +16,6 @@ class ResumeSeeder extends Seeder
     {
         DB::table('resumes')->insert([
             [
-
                 'FIO' => 'Виталий Веселко',
                 'email' => 'vesyolko.v-dev@adict.ru',
                 'skills' => '<p>php8+</p>
@@ -287,13 +286,12 @@ class ResumeSeeder extends Seeder
                     <p>взаимодействовал с двумя СУБД: MySQL и PostgreSQL. Система контроля</p>
                     <p>версий git.</p>',
                 'status_id' => 1,
-                'level_id' => 1,
                 'vacancy_id' => 1,
-            ]
-        ]);
-        DB::table('resumes')->insert([
+                'level_id' => 1,
+                'interview_date' => null,
+            ],
             [
-                'FIO' => 'Петров Петр Петрович',
+                'FIO' => 'Иванов Иван Иванович',
                 'email' => 'igot-smirnov-94@mail.ru',
                 'skills' => 'skills текст',
                 'resume' => 'resume текст',
@@ -301,10 +299,8 @@ class ResumeSeeder extends Seeder
                 'status_id' => 1,
                 'vacancy_id' => 1,
                 'level_id' => 1,
-                'interview_date' => '2021-10-06',
-                'vacancy_id' => 2,
-            ],
+                'interview_date' => '2021-10-05 17:26',
+            ]
         ]);
-
     }
 }
