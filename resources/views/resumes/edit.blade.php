@@ -52,13 +52,13 @@
         </select>
 
         <label for="skills">Skills</label>
-        <textarea id="skills" class="form-control editor" name="skills" placeholder="skills"></textarea>
+        <textarea id="skills" class="form-control editor" name="skills" placeholder="skills">{!! $resume->skills !!}</textarea>
 
         <label for="resume">Resume</label>
         <textarea id="resume" class="form-control editor" name="resume" placeholder="resume">{!! $resume->resume !!}</textarea>
 
         <label for="text">Experience</label>
-        <textarea id="experience" class="form-control editor" name="experience" placeholder="experience"></textarea>
+        <textarea id="experience" class="form-control editor" name="experience" placeholder="experience">{!! $resume->experience !!}</textarea>
 
         <br>
         <a href="/resumes"  class="btn btn-outline-primary btn-sm" type="button">Назад</a>

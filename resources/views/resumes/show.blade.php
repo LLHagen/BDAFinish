@@ -1,6 +1,7 @@
 <x-app title="{{$resume->FIO}}">
 
     <h1>{{$resume->FIO}}</h1>
+    <p>{{$resume->email}}</p>
     <h2>{{$resume->vacancy->name}}</h2>
 
 

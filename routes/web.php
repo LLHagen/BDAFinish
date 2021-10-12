@@ -22,7 +22,6 @@ Route::get('/', function () {
 //Route::get('/pdf', [\App\Http\Controllers\ResumesController::class, 'indexPDF']);
 
 
-
 Route::patch('/resumes/status', [\App\Http\Controllers\ResumesController::class, 'statusUpdate']);
 Route::patch('/resumes/interview', [\App\Http\Controllers\ResumesController::class, 'interviewUpdate']);
 Route::get('/resumes/pdf/{id}', [\App\Http\Controllers\ResumesController::class, 'createPDF']);

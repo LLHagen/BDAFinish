@@ -10,6 +10,7 @@ use App\Models\Vacancy;
 use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use DebugBar\DebugBar;
 
 class ResumesController extends Controller
 {

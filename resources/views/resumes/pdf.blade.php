@@ -1,6 +1,4 @@
 @extends("layouts.pdf")
-
-
 @section('content')
 
     <h1>{{ $resume->FIO }}</h1>
@@ -19,5 +17,3 @@
         {!! $resume->experience !!}
     </div>
 @endsection
-
-
