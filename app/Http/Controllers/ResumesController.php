@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Resume;
 use App\Models\Level;
 use App\Models\Status;
+use DebugBar\DebugBar;
 use App\Models\Vacancy;
 use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Http\Request;
@@ -38,7 +39,14 @@ class ResumesController extends Controller
     {
         $resume = Resume::query()->with('level', 'vacancy', 'status')->find($id);
 
-        //return view('resumes.pdf', compact('resume'));
+        \Debugbar::disable();
+
+
+
+        // если в ссылке есть ?debug - выведет просто представление
+        if( isset($_GET['debug']) ){
+            return view('resumes.pdf', compact('resume'));
+        }
 
         return PDF::loadView('resumes.pdf', compact('resume'))
             ->stream($resume->FIO.'.pdf');

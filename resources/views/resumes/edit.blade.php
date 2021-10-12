@@ -16,12 +16,8 @@
         </script>
     </x-slot>
 
-    <h2>Edit resumes</h2>
+    <h2>Редактирование</h2>
     <br>
-
-    {!! $resume->resume !!}
-
-
 
     <form action="/resumes/{{ $resume->id }}" method="post">
         @csrf
