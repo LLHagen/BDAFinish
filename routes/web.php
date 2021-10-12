@@ -13,13 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-//Route::get('/pdf', [\App\Http\Controllers\ResumesController::class, 'indexPDF']);
-
-
+Route::get('/', [\App\Http\Controllers\ResumesController::class, 'index']);
 
 Route::patch('/resumes/status', [\App\Http\Controllers\ResumesController::class, 'statusUpdate']);
 Route::patch('/resumes/interview', [\App\Http\Controllers\ResumesController::class, 'interviewUpdate']);

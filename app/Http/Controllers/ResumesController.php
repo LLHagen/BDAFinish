@@ -9,6 +9,7 @@ use App\Models\Vacancy;
 use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use DebugBar\DebugBar;
 
 class ResumesController extends Controller
 {
@@ -43,7 +44,14 @@ class ResumesController extends Controller
     {
         $resume = Resume::query()->with('level', 'vacancy', 'status')->find($id);
 
-        //return view('resumes.pdf', compact('resume'));
+        \Debugbar::disable();
+
+
+
+        // если в ссылке есть ?debug - выведет просто представление
+        if( isset($_GET['debug']) ){
+            return view('resumes.pdf', compact('resume'));
+        }
 
         return PDF::loadView('resumes.pdf', compact('resume'))
                   ->stream($resume->FIO.'.pdf');
