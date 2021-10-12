@@ -17,32 +17,27 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+//Route::get('/pdf', [\App\Http\Controllers\ResumesController::class, 'indexPDF']);
+
+
+
+Route::patch('/resumes/status', [\App\Http\Controllers\ResumesController::class, 'statusUpdate']);
+Route::patch('/resumes/interview', [\App\Http\Controllers\ResumesController::class, 'interviewUpdate']);
+Route::get('/resumes/pdf/{id}', [\App\Http\Controllers\ResumesController::class, 'createPDF']);
+
 Route::resource('resumes','ResumesController');
 
+
+
+Route::resource('levels','LevelsController');
+Route::resource('statuses','StatusesController');
+Route::resource('vacancies','VacanciesController');
 
 // костыльный сидер сделать адекватно
 Route::get('spravka', [\App\Http\Controllers\ResumesController::class, 'seeder']);
 
-Route::group(['prefix'=>'levels'], function(){
-    Route::get('/', [\App\Http\Controllers\LevelsController::class, 'create']);
-    Route::post('/', [\App\Http\Controllers\LevelsController::class, 'store']);
-    Route::patch('/{id}', [\App\Http\Controllers\LevelsController::class, 'update']);
-    Route::delete('/{id}', [\App\Http\Controllers\LevelsController::class, 'destroy']);
-    Route::get('/{id}/edit', [\App\Http\Controllers\LevelsController::class, 'edit']);
-});
 
-Route::group(['prefix'=>'statuses'], function(){
-    Route::get('/', [\App\Http\Controllers\StatusesController::class, 'create']);
-    Route::post('', [\App\Http\Controllers\StatusesController::class, 'store']);
-    Route::patch('/{id}', [\App\Http\Controllers\StatusesController::class, 'update']);
-    Route::delete('/{id}', [\App\Http\Controllers\StatusesController::class, 'destroy']);
-    Route::get('/{id}/edit', [\App\Http\Controllers\StatusesController::class, 'edit']);
-});
 
-Route::group(['prefix'=>'vacancies'], function(){
-    Route::get('/', [\App\Http\Controllers\VacanciesController::class, 'create']);
-    Route::post('', [\App\Http\Controllers\VacanciesController::class, 'store']);
-    Route::patch('/{id}', [\App\Http\Controllers\VacanciesController::class, 'update']);
-    Route::delete('/{id}', [\App\Http\Controllers\VacanciesController::class, 'destroy']);
-    Route::get('/{id}/edit', [\App\Http\Controllers\VacanciesController::class, 'edit']);
-});
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

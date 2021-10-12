@@ -15,5 +15,5 @@ yarn-error.log
 /.vscode
 storage/debugbar/
 composer.lock
+package-lock.json
 /mydir
-plane.php
