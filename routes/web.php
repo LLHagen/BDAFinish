@@ -14,7 +14,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    if( isset($_GET['react']) ){
+        return view('layouts.react');
+    } else return redirect(\route('resumes.index'));
 });
 
 //Route::get('/pdf', [\App\Http\Controllers\ResumesController::class, 'indexPDF']);
@@ -26,7 +28,6 @@ Route::patch('/resumes/interview', [\App\Http\Controllers\ResumesController::cla
 Route::get('/resumes/pdf/{id}', [\App\Http\Controllers\ResumesController::class, 'createPDF']);
 
 Route::resource('resumes','ResumesController');
-
 
 
 Route::resource('levels','LevelsController');
