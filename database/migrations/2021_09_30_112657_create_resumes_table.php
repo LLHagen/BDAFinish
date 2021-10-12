@@ -14,31 +14,20 @@ class CreateResumesTable extends Migration
     public function up()
     {
         Schema::create('resumes', function (Blueprint $table) {
-        $table->increments('id');
-        $table->string('FIO');
-        $table->string('email');
-<<<<<<< HEAD
-        $table->text('skills')->nullable();
-        $table->text('experience')->nullable();
-        $table->text('resume')->nullable();
-        $table->dateTime('interview_date')->nullable();
-        $table->unsignedInteger('level_id')->nullable();
-        $table->unsignedInteger('vacancy_id')->nullable();
-        $table->unsignedInteger('status_id')->default(1)->nullable();
-        $table->timestamps();
-=======
-        $table->text('text'); // TODO: rename
-        $table->date('interview_date')->nullable();
-        //$table->unsignedInteger('level_id')->nullable();
-        $table->integer('level_id')->unsigned()->index();
-        $table->foreign('level_id')->references('id')->on('levels');
-        //$table->unsignedInteger('status_id')->default(1)->nullable();
-        $table->integer('status_id')->unsigned()->index();
-        $table->foreign('status_id')->references('id')->on('statuses');
-        $table->integer('vacancy_id')->unsigned()->index();
-        $table->foreign('vacancy_id')->references('id')->on('vacancies');
+            $table->increments('id');
+            $table->string('FIO');
+            $table->string('email');
+            $table->text('text')->nullable(); // TODO: rename + nullable
+            $table->date('interview_date')->nullable();
+            //$table->unsignedInteger('level_id')->nullable();
+            $table->integer('level_id')->unsigned()->index();
+            $table->foreign('level_id')->references('id')->on('levels');
+            //$table->unsignedInteger('status_id')->default(1)->nullable();
+            $table->integer('status_id')->unsigned()->index();
+            $table->foreign('status_id')->references('id')->on('statuses');
+            $table->integer('vacancy_id')->unsigned()->index();
+            $table->foreign('vacancy_id')->references('id')->on('vacancies');
 //        $table->timestamps();
->>>>>>> 1fa2044db874a0690dd237c80cd9f3e95772f17d
         });
     }
 

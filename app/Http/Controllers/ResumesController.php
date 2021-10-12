@@ -14,26 +14,11 @@ class ResumesController extends Controller
 {
     public function index()
     {
-        $resumes = DB::table('resumes')
-                     ->join('levels', 'levels.id', '=', 'resumes.level_id')
-                     ->join('vacancies', 'vacancies.id', '=', 'resumes.vacancy_id')
-                     ->join('statuses', 'statuses.id', '=', 'resumes.status_id')
-                     ->select('resumes.*', 'levels.name as level', 'vacancies.name as vacancy', 'statuses.name as status')
-                     ->get();
+        $resumes = $this->get();
 
         $statuses = Status::get();
 
         return view('resumes.list', compact('resumes', 'statuses'));
-    }
-
-    public function getByAPI()
-    {
-        return DB::table('resumes')
-            ->select(DB::raw('*'))
-            ->join('levels', 'levels.id', '=', 'resumes.level_id')
-            ->join('statuses', 'statuses.id', '=', 'resumes.status_id')
-            ->join('vacancies', 'vacancies.id', '=', 'resumes.vacancy_id')
-            ->get();
     }
 
     public function show(Resume $resume)
@@ -56,19 +41,19 @@ class ResumesController extends Controller
         //return view('resumes.pdf', compact('resume'));
 
         return PDF::loadView('resumes.pdf', compact('resume'))
-                  ->stream($resume->FIO.'.pdf');
+            ->stream($resume->FIO.'.pdf');
     }
 
     public function store(Request $request)
     {
         $resume = new Resume();
         $attributes = request()->validate([
-                                              'FIO'        => 'required',
-                                              'email'      => 'required',
-                                              'resume'     => 'required',
-                                              'skills'     => 'sometimes',
-                                              'experience' => 'sometimes',
-                                          ]);
+            'FIO'        => 'required',
+            'email'      => 'required',
+            'resume'     => 'required',
+            'skills'     => 'sometimes',
+            'experience' => 'sometimes',
+        ]);
         $attributes['level_id'] = Level::select('id')->where('name', request()->get('level_id'))->first()->id;
         $attributes['vacancy_id'] = Vacancy::select('id')->where('name', request()->get('vacancy_id'))->first()->id;
 
@@ -76,6 +61,7 @@ class ResumesController extends Controller
 
         return back();
     }
+
 
     public function destroy($id)
     {
@@ -104,66 +90,62 @@ class ResumesController extends Controller
 
     public function interviewUpdate(Request $request)
     {
-<<<<<<< HEAD
         $resume = Resume::find($request->resume);
         $resume->interview_date = $request->date;
 
         return $resume->save();
     }
-=======
-
-        DB::table('statuses')->insert([
-            ['name' => 'Ожидает'],
-            ['name' => 'Рассмотрен'],
-            ['name' => 'Одобрен'],
-        ]);
-        DB::table('vacancies')->insert([
-            [
-                'name' => 'PHP Разработчик',
-                'description' => 'PHP Разработчик description'
-            ],
-            [
-                'name' => 'Тестировщик',
-                'description' => 'Тестировщик description'
-            ],
-            [
-                'name' => 'Верстальщик',
-                'description' => 'Верстальщик description'
-            ],
-        ]);
-
-        DB::table('resumes')->insert([
-            [
-                'FIO' => 'Иванов Иван Иванович',
-                'email' => 'igot-smirnov-94@mail.ru',
-                'text' => 'Резюме текст',
-                'status_id' => 1,
-                'level_id' => 1,
-            ],
-            [
-                'FIO' => 'Петров Петр Петрович',
-                'email' => 'igot-smirnov-94@mail.ru',
-                'text' => 'Резюме текст',
-                'status_id' => 2,
-                'level_id' => 1,
-            ],
-        ]);
->>>>>>> 1fa2044db874a0690dd237c80cd9f3e95772f17d
 
     public function update(Resume $resume)
     {
         $attributes = request()->validate([
-                                              'FIO'        => 'required',
-                                              'email'      => 'required',
-                                              'resume'     => 'required',
-                                              'skills'     => 'sometimes',
-                                              'experience' => 'sometimes',
-                                          ]);
+            'FIO'        => 'required',
+            'email'      => 'required',
+            'resume'     => 'required',
+            'skills'     => 'sometimes',
+            'experience' => 'sometimes',
+        ]);
         $attributes['level_id'] = Level::select('id')->where('name', request()->get('level_id'))->first()->id;
         $attributes['vacancy_id'] = Vacancy::select('id')->where('name', request()->get('vacancy_id'))->first()->id;
 
         $resume->update($attributes);
 
         return back();
+    }
+
+    /* --- Для React --- */ //TODO: refactor
+    public function get()
+    {
+        return DB::table('resumes')
+            ->join('levels', 'levels.id', '=', 'resumes.level_id')
+            ->join('vacancies', 'vacancies.id', '=', 'resumes.vacancy_id')
+            ->join('statuses', 'statuses.id', '=', 'resumes.status_id')
+            ->select('resumes.*', 'levels.name as level', 'vacancies.name as vacancy', 'statuses.name as status')
+            ->get();
+    }
+
+    public function addByAPI(Request $request){
+        $model = new Resume();
+        foreach($request->record as $key => $value){
+            if($key == '__KEY__')
+                continue;
+            else
+                $model->$key = $value;
+        }
+        $model->save();
+    }
+
+    public function delByAPI(Request $request){
+        $tableName = $request->tableName;
+        $id = $request->recordId['id'];
+
+        DB::table($tableName)->where('id', '=', $id)->delete();
+    }
+
+    public function editByAPI(Request $request){
+        $key = array_keys($request->newData)[0];
+        DB::table('resumes')
+            ->where('id', $request->recordId)
+            ->update([$key=> $request->newData[$key]]);
     }
 }

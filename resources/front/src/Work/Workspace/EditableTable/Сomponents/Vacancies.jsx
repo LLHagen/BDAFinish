@@ -8,9 +8,9 @@ function Vacancies() {
 	const [mainData] = useState(DataRequester.createDataSource([], 'vacancies'))
 	return (
 		<div>
-			<h2 className="Table-header">Список вакансий</h2>
+			<h2 className="Table-header">Справочник должностей</h2>
 			<DataGridTemplate dataSource={mainData} columns={[
-				<Column dataField="id" caption="id" />,
+				<Column dataField="id" caption="id" allowEditing={false} />,
 				<Column dataField="name" caption="Название"/>,
 				<Column dataField="description" caption="Описание"/>,
 				<Column dataField="isActive" caption="Активно" dataType="boolean"/>

@@ -8,7 +8,7 @@ function NavHeader() {
   return (
     <div className="wrapper">
       <Header />
-      <Tools />
+        {/*<Tools />*/}
     </div>
   );
 }

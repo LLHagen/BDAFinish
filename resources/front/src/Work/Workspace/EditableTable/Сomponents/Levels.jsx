@@ -10,7 +10,7 @@ function Levels() {
 		<div>
 			<h2 className="Table-header">Справочник уровней соискателей</h2>
 			<DataGridTemplate dataSource={mainData} columns={[
-				<Column dataField="id" caption="id" />,
+				<Column dataField="id" caption="id" allowEditing={false} />,
 				<Column dataField="name" caption="Уровень" />
 			]}
 			/>

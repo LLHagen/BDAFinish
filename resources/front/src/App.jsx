@@ -6,6 +6,7 @@ import Registration from './Registration/Registration.jsx';
 import Work from './Work/Work.jsx';
 import NotFoundPage from './NotFoundPage/NotFoundPage.jsx';
 import RestorePassword from './RestorePassword/RestorePassword.jsx';
+import ResumeCreator from "./Work/Workspace/ResumeCreator/ResumeCreator";
 
 
 function App(props) {
@@ -13,6 +14,7 @@ function App(props) {
 		return (
 			<Switch>
 				<Route path='/work' render={() => <Work />} />
+                <Route exact path='/resumeCreator' render ={() => <ResumeCreator />}/>
 				<Route exact path='/authorization' render={() => <Authorization />} />
 				<Route exact path='/registration' render={() => <Registration />} />
 				<Route exact path='/restorePassword' render ={() => <RestorePassword />}/>
@@ -48,6 +50,6 @@ const mapStateToProps = (state) => {
 	return {
 		isAuthorized: s.isAuthorized
 	}
-} 
+}
 
 export default connect(mapStateToProps)(App);

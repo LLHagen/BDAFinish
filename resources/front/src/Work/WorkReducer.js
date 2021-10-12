@@ -23,7 +23,7 @@ const initialState = {
 		{
 			id: '2',
 			linkUrl: '../work/vacancies',
-			linkName: 'Вакансии'
+			linkName: 'Должности'
 		},
 		{
 			id: '3',

@@ -18,7 +18,7 @@ export default class DataRequester {
                 .catch( e => { throw e} );
             },
             insert: function(values) {
-                return axios.post(SERVER_URL + "/work/addInTable", {
+                return axios.post(SERVER_URL + "/work/addInTable/" + tableName, {
                     tableName: tableName,
                     record: values
                 })
@@ -30,7 +30,7 @@ export default class DataRequester {
                 })
             },
             update: function(key, values, additional=null) {
-                return axios.put(SERVER_URL + "/work/editRecordInTable", {
+                return axios.put(SERVER_URL + "/work/editRecordInTable/" + tableName, {
                     tableName: tableName,
                     recordId: key.id,
                     newData: values,
@@ -40,11 +40,11 @@ export default class DataRequester {
                     return res
                 })
                 .catch(e => {
-                    throw e
+                    throw 'Вы пытаетесь изменить элемент, который присутствует в другой таблице!'
                 })
             },
             remove: function(key) {
-                return axios.delete(SERVER_URL + "/work/delRecordInTable", { data: {
+                return axios.delete(SERVER_URL + "/work/delRecordInTable/" + tableName, { data: {
                         tableName: tableName,
                         recordId: key
                     }
@@ -61,7 +61,7 @@ export default class DataRequester {
     }
 
     static getAdditionalData(tableName, setter) {
-        axios.get(SERVER_URL + "/work/getTable/" + tableName, //+ tableName,
+        axios.get(SERVER_URL + "/work/getTable/" + tableName,
             {
                 tableName: tableName
             }).then((res) => {setter(res.data)})
