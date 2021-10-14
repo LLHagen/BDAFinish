@@ -17,6 +17,9 @@
         body {
             font-family: DejaVu Sans, sans-serif;
         }
+        p{
+            line-height: 1.3;
+        }
     </style>
 </head>
 <body>

@@ -19,3 +19,5 @@ mix.js('resources/js/index.js', 'public/js/app.js')
 mix.sourceMaps(productionSourceMaps, 'source-map');
 
 mix.copyDirectory('resources/icon', 'public/icon');
+
+mix.copyDirectory('vendor/tinymce/tinymce', 'public/js/tinymce');
