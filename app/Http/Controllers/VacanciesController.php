@@ -18,12 +18,12 @@ class VacanciesController extends Controller
 
     public function store()
     {
-//        возможно не оптимально
         $vacancies = new Vacancy();
         $attributes = request()->validate([
-            'name' => 'required',
-            'description' => 'required',
+            'name' => 'required|max:255',
+            'description' => 'required|max:1000',
         ]);
+        $attributes['isActive'] = (bool) request()->input('isActive', false);
         $vacancies->create($attributes);
         return back();
     }
@@ -34,15 +34,14 @@ class VacanciesController extends Controller
         return view('vacancies.edit', compact('vacancy'));
     }
 
-    public function update($id)
+    public function update(Vacancy $vacancy)
     {
         $attributes = request()->validate([
-            'name' => 'required',
-            'description' => 'required',
+            'name' => 'required|max:255',
+            'description' => 'required|max:1000',
         ]);
         $attributes['isActive'] = (bool) request()->input('isActive', false);
-        Vacancy::where('id', $id)
-            ->update($attributes);
+        $vacancy->update($attributes);
         return back();
     }
 

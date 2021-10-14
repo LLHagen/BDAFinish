@@ -17,9 +17,12 @@ class LevelsController extends Controller
 
     public function store()
     {
-//        возможно не оптимально
         $level = new Level();
-        $level->create(['name'=>request()->get('name')]);
+        $attributes = request()->validate([
+            'name' => 'required|max:255',
+        ]);
+
+        $level->create($attributes);
         return back();
     }
 
@@ -29,13 +32,12 @@ class LevelsController extends Controller
         return view('levels.edit', compact('level'));
     }
 
-    public function update($id)
+    public function update(Level $level)
     {
         $attributes = request()->validate([
-            'name' => 'required',
+            'name' => 'required|max:255',
         ]);
-        Level::where('id', $id)
-            ->update($attributes);
+        $level->update($attributes);
         return back();
     }
 

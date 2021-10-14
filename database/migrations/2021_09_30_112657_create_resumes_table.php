@@ -19,11 +19,11 @@ class CreateResumesTable extends Migration
             $table->string('email');
             $table->text('skills')->nullable();
             $table->text('experience')->nullable();
-            $table->text('resume')->nullable();
+            $table->text('resume');
             $table->date('interview_date')->nullable();
             $table->integer('level_id')->unsigned()->index();
             $table->foreign('level_id')->references('id')->on('levels');
-            $table->integer('status_id')->unsigned()->index();
+            $table->integer('status_id')->unsigned()->index()->nullable();
             $table->foreign('status_id')->references('id')->on('statuses');
             $table->integer('vacancy_id')->unsigned()->index();
             $table->foreign('vacancy_id')->references('id')->on('vacancies');
