@@ -34,6 +34,7 @@
                     @if($resume->level_id == $level->id)
                         selected="selected"
                     @endif
+                    value="{{$level->id}}"
                 >
                         {{$level->name}}
                 </option>
@@ -47,6 +48,7 @@
                     @if($resume->vacancy_id == $vacancy->id)
                     selected="selected"
                     @endif
+                    value="{{$vacancy->id}}"
                 >{{$vacancy->name}}</option>
             @endforeach
         </select>

@@ -17,9 +17,11 @@ class StatusesController extends Controller
 
     public function store()
     {
-//        возможно не оптимально
         $status = new Status();
-        $status->create(['name'=>request()->get('name')]);
+        $attributes = request()->validate([
+            'name' => 'required|max:255',
+        ]);
+        $status->create($attributes);
         return back();
     }
 
@@ -29,13 +31,12 @@ class StatusesController extends Controller
         return view('statuses.edit', compact('status'));
     }
 
-    public function update($id)
+    public function update(Status $status)
     {
         $attributes = request()->validate([
-            'name' => 'required',
+            'name' => 'required|max:255',
         ]);
-        Status::where('id', $id)
-            ->update($attributes);
+        $status->update($attributes);
         return back();
     }
 
