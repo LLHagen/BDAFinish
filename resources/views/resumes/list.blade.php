@@ -1,23 +1,30 @@
 <x-app>
+    <x-slot name="head">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    </x-slot>
+
+    <x-navbar></x-navbar>
+
 
     <div class="container mt-5">
-        <h2 class="text-center mb-3">Laravel Resume</h2>
+        <h2 class="text-center mb-3">Резюме</h2>
 
         <div class="d-flex justify-content-end mb-4">
-            <a class="btn btn-primary" href="{{ URL::to('/resumes/create') }}">Add resume</a>
+            <a class="btn btn-primary" href="{{ URL::to('/resumes/create') }}">Добавить</a>
         </div>
 
         <table class="table table-bordered mb-5" id="mytable">
             <thead>
             <tr class="table-danger">
-                <th scope="col">id</th>
-                <th scope="col">Name</th>
-                <th scope="col">Email</th>
-                <th scope="col">Level</th>
-                <th scope="col">Vacancy</th>
-                <th scope="col">Status</th>
-                <th scope="col">Date interview</th>
-                <th>Nav</th>
+                <th scope="col">№</th>
+                <th scope="col">ФИО</th>
+                <th scope="col">E-mail</th>
+                <th scope="col">Уровень</th>
+                <th scope="col">Должность</th>
+                <th scope="col">Статус</th>
+                <th scope="col">Дата</th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
