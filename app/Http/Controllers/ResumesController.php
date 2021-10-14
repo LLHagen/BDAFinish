@@ -41,8 +41,6 @@ class ResumesController extends Controller
 
         \Debugbar::disable();
 
-
-
         // если в ссылке есть ?debug - выведет просто представление
         if( isset($_GET['debug']) ){
             return view('resumes.pdf', compact('resume'));
@@ -55,15 +53,16 @@ class ResumesController extends Controller
     public function store(Request $request)
     {
         $resume = new Resume();
+
         $attributes = request()->validate([
-            'FIO'        => 'required',
-            'email'      => 'required',
-            'resume'     => 'required',
-            'skills'     => 'sometimes',
-            'experience' => 'sometimes',
+            'FIO'        => 'required|string|max:255',
+            'email'      => 'required|string|max:255',
+            'resume'     => 'required|string|max:8000',
+            'skills'     => 'sometimes|string|max:2000',
+            'experience' => 'sometimes|string|max:10000',
+            'vacancy_id' => 'required|integer|max:10',
+            'level_id'   => 'required|integer|max:10',
         ]);
-        $attributes['level_id'] = Level::select('id')->where('name', request()->get('level_id'))->first()->id;
-        $attributes['vacancy_id'] = Vacancy::select('id')->where('name', request()->get('vacancy_id'))->first()->id;
 
         $resume->create($attributes);
 
@@ -107,14 +106,14 @@ class ResumesController extends Controller
     public function update(Resume $resume)
     {
         $attributes = request()->validate([
-            'FIO'        => 'required',
-            'email'      => 'required',
-            'resume'     => 'required',
-            'skills'     => 'sometimes',
-            'experience' => 'sometimes',
+            'FIO'        => 'required|string|max:255',
+            'email'      => 'required|string|max:255',
+            'resume'     => 'required|string|max:8000',
+            'skills'     => 'sometimes|string|max:2000',
+            'experience' => 'sometimes|string|max:10000',
+            'vacancy_id' => 'required|integer|max:10',
+            'level_id'   => 'required|integer|max:10',
         ]);
-        $attributes['level_id'] = Level::select('id')->where('name', request()->get('level_id'))->first()->id;
-        $attributes['vacancy_id'] = Vacancy::select('id')->where('name', request()->get('vacancy_id'))->first()->id;
 
         $resume->update($attributes);
 
