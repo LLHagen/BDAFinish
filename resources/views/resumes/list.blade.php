@@ -29,7 +29,8 @@
                     <td>{{ $resume->email }}</td>
                     <td>{{ $resume->level->name }}</td>
                     <td>{{ $resume->vacancy->name }}</td>
-                    <td>        <select class="form-control" name="status_id">
+                    <td>
+                        <select class="form-control" name="status_id">
                             @foreach($statuses as $status)
                                 <option
                                     @if($resume->status_id == $status->id)
@@ -46,14 +47,9 @@
                             type="datetime-local"
                             class="date-time"
                             name="date"
-                            value="{{
-                                ($resume->interview_date) ?
-                                    DateTime::createFromFormat('Y-m-d H:i:s', $resume->interview_date)->format('Y-m-d\TH:i') :
-                                    $resume->interview_date
-                            }}">
+                            value="{{ $resume->InterviewDateFormatted }}">
                     </td>
                     <td>
-
                         <a href="/resumes/{{ $resume->id }}"  class="btn btn-outline-primary btn-sm" type="button">
                             <img src="{{ '/icon/show.svg' }}" alt="edit" />
                         </a>
@@ -64,9 +60,6 @@
                             <img src="{{ '/icon/edit.svg' }}" alt="edit" />
                         </a>
 
-
-{{--                        <img src="{{ '/icon/delete.svg' }}" alt="" />--}}
-
                         <form class="form-group d-inline" action="/resumes/{{$resume->id}}" method="post">
                             @csrf
                             @method('delete')
@@ -75,10 +68,10 @@
                                 type="submit"
                                 name="delete"
                                 id="{{$resume->id}}"
-
                                 value=""><img src="{{ '/icon/delete.svg' }}" alt="delete" /></button>
                             <br>
-                        </form></td>
+                        </form>
+                    </td>
                 </tr>
             @endforeach
 

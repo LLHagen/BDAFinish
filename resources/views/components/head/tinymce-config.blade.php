@@ -10,5 +10,6 @@
         plugin_preview_width : "100%",
         plugin_preview_height : "600",
         theme_advanced_resizing : true,
+        content_css: "{{ asset('css/tinymce/tinymce.css') }}",
     });
 </script>

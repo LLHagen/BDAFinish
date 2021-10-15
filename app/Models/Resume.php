@@ -32,17 +32,7 @@ class Resume extends Model
         return $this->belongsTo(Status::class);
     }
 
-    public function getResumeEncodedAttribute()
-    {
-        return str_replace(
-            ["\r\n", "\r", "\n"],
-            '<br>',
-            htmlspecialchars_decode(addslashes($this->resume)
-            )
-        );
-    }
-
     public function getInterviewDateFormattedAttribute(){
-        return $this->interview_date ? $this->interview_date->format('d-m-Y H:i') : null;
+        return $this->interview_date ? $this->interview_date->format('Y-m-d\TH:i') : null;
     }
 }
