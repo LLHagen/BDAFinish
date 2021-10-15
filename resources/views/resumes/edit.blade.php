@@ -1,20 +1,7 @@
 <x-app>
     <x-slot name="head">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-        <script src="https://cdn.tiny.cloud/1/cr3ykv765jjxs5y3h6797m6hj4gypjz1ylt54h62dc9wprt9/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-        <script>
-            tinymce.init({
-                selector: ".editor",
-                statusbar: false,
-                branding: false,
-                width : "100%",
-                height : "400",
-                plugin_preview_width : "100%",
-                plugin_preview_height : "600",
-                theme_advanced_resizing : true,
-            });
-        </script>
+        <x-head.tinymce-config />
     </x-slot>
 
 

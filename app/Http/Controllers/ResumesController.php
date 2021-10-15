@@ -69,7 +69,6 @@ class ResumesController extends Controller
         return back();
     }
 
-
     public function destroy($id)
     {
         Resume::destroy($id);
