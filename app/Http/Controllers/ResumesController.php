@@ -15,8 +15,8 @@ class ResumesController extends Controller
 {
     public function index()
     {
-        $resumes = Resume::all();
-
+        $resumes = Resume::sortable([ 'created_at' => 'asc' ])
+            ->paginate(20);
         $statuses = Status::get();
 
         return view('resumes.list', compact('resumes', 'statuses'));

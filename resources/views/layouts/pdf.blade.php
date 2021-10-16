@@ -12,15 +12,21 @@
         }
         html {
             font-family: Arial, Tahoma, "Times New Roman", DejaVu Sans, sans-serif;
+            line-height: 0.5;
         }
         h1 {
             margin-bottom: 8px;
+            font-size: 20px;
         }
         .section {
-            margin-top: 50px;
+            margin-top: 30px;
+        }
+        .mailto {
+            font-size: 12px;
         }
         div.section p {
             margin-top: 4px;
+            font-size: 12px;
         }
     </style>
 </head>

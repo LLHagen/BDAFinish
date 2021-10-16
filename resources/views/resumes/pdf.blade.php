@@ -2,8 +2,7 @@
 @section('content')
 
     <h1>{{ $resume->FIO }}</h1>
-    <div><span><a href="mailto:{{ $resume->email }}">{{ $resume->email }}</a></span></div>
-
+    <div class="mailto"><span><a href="mailto:{{ $resume->email }}">{{ $resume->email }}</a></span></div>
     <div class="section">
         <h3>Ключевые навыки</h3>
         {!! $resume->skills !!}
