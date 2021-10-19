@@ -127,8 +127,13 @@ class ResumesController extends Controller
 
     public function interviewUpdate(Request $request)
     {
+
         $resume = Resume::find($request->resume);
-        $resume->interview_date = $request->date;
+        if (!empty($request->date)) {
+            $resume->interview_date = Carbon::createFromFormat('d.m.y H:i', $request->date);
+        } else {
+            $resume->interview_date = null;
+        }
 
         return $resume->save();
     }
