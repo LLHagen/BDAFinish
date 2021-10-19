@@ -1,18 +1,12 @@
-<x-app title="{{$resume->FIO}}">
+@extends("layouts.app")
 
-    <h1>{{$resume->FIO}}</h1>
-    <p>{{$resume->email}}</p>
-    <h2>{{$resume->vacancy->name}}</h2>
+@section("content")
 
+    @include("resumes._actions")
 
-    {!! $resume->skills !!}
-    {!! $resume->resume !!}
-    {!! $resume->experience !!}
+    @include("resumes._pdf_content")
 
-    <a href="/resumes"  class="btn btn-outline-primary btn-sm" type="button">Назад</a>
-    <a href="/resumes/{{$resume->id}}/edit" class="btn btn-outline-primary btn-sm" type="button">Редактировать</a>
-    <a href="/resumes/pdf/{{ $resume->id }}"  class="btn btn-outline-primary btn-sm" type="button">
-        <img src="{{ '/icon/download.svg' }}" alt="edit" />
-    </a>
-</x-app>
+    @include("resumes._actions")
+
+@endsection
 
