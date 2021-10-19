@@ -22,6 +22,16 @@
 
     <div class="row">
         <div class="col">
+
+            <form class="form-inline" method="GET">
+                <div class="form-group mb-2">
+                    <label for="filter" class="col-sm-3 col-form-label">Поиск</label>
+                    <input type="text" class="form-control" id="filter" name="filter" placeholder="Product name..." value="{{$filter}}">
+                </div>
+                <button type="submit" class="btn btn-default mb-2">Искать</button>
+            </form>
+
+
             <table class="table table-stripped table-responsive" id="mytable">
                 <thead class="thead-dark">
                 <tr>
@@ -35,59 +45,64 @@
                 </tr>
                 </thead>
                 <tbody>
+                @if(count($resumes) > 0)
+                    @foreach($resumes ?? [] as $resume)
+                        <tr id="item-{{ $resume->id }}">
+                            <td class="d-none">
+                                <div class="resume-id">{{ $resume->id }}</div>
+                            </td>
+                            <td>{{ $resume->FIO }}</td>
+                            <td>{{ $resume->email }}</td>
+                            <td>{{ $resume->level->name }}</td>
+                            <td>{{ $resume->vacancy->name }}</td>
+                            <td >
+                                <select class="form-control" name="status_id" id="status_id">
+                                    @foreach($statuses as $status)
+                                        <option
+                                                @if($resume->status_id == $status->id)
+                                                selected="selected"
+                                                @endif
+                                        >
+                                            {{$status->name}}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </td>
+                            <td>
+                                <input
+                                        id="datetimepicker"
+                                        type="text"
+                                        class="form-control datetimepicker"
+                                        name="date"
+                                        value="{{ $resume->InterviewDateFormatted ?? '' }}">
 
-                @foreach($resumes ?? [] as $resume)
-                    <tr id="item-{{ $resume->id }}">
-                        <td class="d-none">
-                            <div class="resume-id">{{ $resume->id }}</div>
-                        </td>
-                        <td>{{ $resume->FIO }}</td>
-                        <td>{{ $resume->email }}</td>
-                        <td>{{ $resume->level->name }}</td>
-                        <td>{{ $resume->vacancy->name }}</td>
-                        <td >
-                            <select class="form-control" name="status_id" id="status_id">
-                                @foreach($statuses as $status)
-                                    <option
-                                            @if($resume->status_id == $status->id)
-                                            selected="selected"
-                                            @endif
-                                    >
-                                        {{$status->name}}
-                                    </option>
-                                @endforeach
-                            </select></td>
-                        <td>
-                            <input
-                                    id="datetimepicker"
-                                    type="text"
-                                    class="form-control datetimepicker"
-                                    name="date"
-                                    value="{{ $resume->interview_date ? $resume->interview_date->format("d.m.y H:i") : '' }}">
-
-                        </td>
-                        <td class="nav-btn-container" style="white-space: nowrap">
-                            <a href="/resumes/{{ $resume->id }}" class="btn btn-outline-primary btn-sm" type="button">
-                                <i class="fa fa-eye"></i>
-                            </a>
-                            <a href="/resumes/pdf/{{ $resume->id }}" class="btn btn-outline-primary btn-sm"
-                               type="button"><i class="fa fa-download"></i>
-                            </a>
-                            <a href="{{ route('resumes.edit',['resume'=>$resume->id]) }}"
-                               class="btn btn-outline-primary btn-sm"
-                               type="button"><i class="fa fa-pencil"></i></a>
-                            <a href="#" data-id="{{$resume->id}}"
-                               class="btn btn-outline-danger btn-sm btn-delete"
-                               type="button" data-toggle="modal" data-target="#confirm-delete">
-                                <i class="fa fa-times"></i>
-                            </a>
-                        </td>
-                    </tr>
-                @endforeach
-
+                            </td>
+                            <td class="nav-btn-container" style="white-space: nowrap">
+                                <a href="/resumes/{{ $resume->id }}" class="btn btn-outline-primary btn-sm" type="button">
+                                    <i class="fa fa-eye"></i>
+                                </a>
+                                <a href="/resumes/pdf/{{ $resume->id }}" class="btn btn-outline-primary btn-sm"
+                                   type="button"><i class="fa fa-download"></i>
+                                </a>
+                                <a href="{{ route('resumes.edit',['resume'=>$resume->id]) }}"
+                                   class="btn btn-outline-primary btn-sm"
+                                   type="button"><i class="fa fa-pencil"></i></a>
+                                <a href="#" data-id="{{$resume->id}}"
+                                   class="btn btn-outline-danger btn-sm btn-delete"
+                                   type="button" data-toggle="modal" data-target="#confirm-delete">
+                                    <i class="fa fa-times"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    @endforeach
+                @else
+                    <tr><td><p>Поиск не дал результатов...</p></td></tr>
+                @endif
                 </tbody>
             </table>
-            {{ $resumes->links('vendor.pagination.bootstrap-4') }}
+            @if(!empty($resumes->links))
+                {{ $resumes->links('vendor.pagination.bootstrap-4') }}
+            @endif
         </div>
     </div>
 
@@ -105,26 +120,29 @@
                 $(this).find('.btn-confirm').data('id', $(e.relatedTarget).data('id'));
             });
 
-            $('.btn-confirm').click(function () {
-                let token = $("meta[name='csrf-token']").attr('content');
-                let el = $(this);
+            @if(!empty($resume->id))
+                $('.btn-confirm').click(function () {
+                    let token = $("meta[name='csrf-token']").attr('content');
+                    let el = $(this);
 
-                fetch('{{ route('resumes.destroy',['resume'=>$resume->id]) }}', {
-                    method: 'DELETE',
-                    headers: {
-                        "X-CSRF-Token": token
-                    }
-                }).then(function () {
-                    $('#item-' + el.data('id')).remove();
-                    $('#confirm-delete').modal('hide');
+                    fetch('{{ route('resumes.destroy',['resume'=>$resume->id]) }}', {
+                        method: 'DELETE',
+                        headers: {
+                            "X-CSRF-Token": token
+                        }
+                    }).then(function () {
+                        $('#item-' + el.data('id')).remove();
+                        $('#confirm-delete').modal('hide');
+                    });
                 });
-            });
+            @endif
+            let date = $(".datetimepicker");
 
-            let date = $(".date-time");
             date.change(function () {
                 let date = {};
                 date.date = this.value;
                 date.resume = $(this).parent().parent().find(".resume-id").text();
+
 
                 $.ajax({
                     url: '/resumes/interview/',
