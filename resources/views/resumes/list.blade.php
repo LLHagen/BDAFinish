@@ -20,18 +20,23 @@
         </div>
     </div>
 
+
+
     <div class="row">
         <div class="col">
-
             <form class="form-inline" method="GET">
-                <div class="form-group mb-2">
+                <div class="form-group  d-flex  mb-2">
                     <label for="filter" class="col-sm-3 col-form-label">Поиск</label>
-                    <input type="text" class="form-control" id="filter" name="filter" placeholder="Product name..." value="{{$filter}}">
+                    <input type="text" class="form-control" id="filter" name="filter" placeholder="Поиск..." value="{{$filter}}">
                 </div>
-                <button type="submit" class="btn btn-default mb-2">Искать</button>
+                <button type="submit" class="btn btn-dark mb-2">Искать</button>
             </form>
+        </div>
+    </div>
 
 
+    <div class="row">
+        <div class="col">
             <table class="table table-stripped table-responsive" id="mytable">
                 <thead class="thead-dark">
                 <tr>
@@ -74,6 +79,7 @@
                                         type="text"
                                         class="form-control datetimepicker"
                                         name="date"
+                                        autocomplete="off"
                                         value="{{ $resume->InterviewDateFormatted ?? '' }}">
 
                             </td>
