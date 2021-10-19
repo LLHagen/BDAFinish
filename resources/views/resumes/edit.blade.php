@@ -6,7 +6,6 @@
 
     <h2>Редактирование резюме</h2>
     <br>
-
     <form action="/resumes/{{ $resume->id }}" method="post">
         @csrf
         @method('patch')
