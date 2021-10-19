@@ -13,13 +13,73 @@ use Illuminate\Support\Facades\DB;
 
 class ResumesController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $resumes = Resume::sortable([ 'created_at' => 'asc' ])
-            ->paginate(20);
+        $filter = $request->query('filter');
+
+        $filter_column = $request->query('filter_column');
+
+        $paginate = 20;
+        if (!empty($filter) && !empty($filter_column)) {
+
+            switch ($filter_column) {
+                case "FIO":
+                    $resumes = Resume::leftjoin('levels', 'levels.id', '=', 'resumes.level_id')
+                        ->leftjoin('vacancies', 'vacancies.id', '=', 'resumes.vacancy_id')
+                        ->leftjoin('statuses', 'statuses.id', '=', 'resumes.status_id')
+                        ->select('resumes.*', 'levels.name as resumes.level', 'vacancies.name as resumes.vacancy', 'statuses.name as resumes.status')
+                        ->sortable([ 'created_at' => 'asc' ])
+                        ->where('resumes.FIO', 'like', '%'.$filter.'%')
+                        ->paginate($paginate);
+                    break;
+                case "level":
+                    $resumes = Resume::leftjoin('levels', 'levels.id', '=', 'resumes.level_id')
+                        ->leftjoin('vacancies', 'vacancies.id', '=', 'resumes.vacancy_id')
+                        ->leftjoin('statuses', 'statuses.id', '=', 'resumes.status_id')
+                        ->select('resumes.*', 'levels.name as resumes.level', 'vacancies.name as resumes.vacancy', 'statuses.name as resumes.status')
+                        ->sortable([ 'created_at' => 'asc' ])
+                        ->where('levels.name', 'like', '%'.$filter.'%')
+                        ->paginate($paginate);
+                    break;
+
+                case "status":
+                    $resumes = Resume::leftjoin('levels', 'levels.id', '=', 'resumes.level_id')
+                        ->leftjoin('vacancies', 'vacancies.id', '=', 'resumes.vacancy_id')
+                        ->leftjoin('statuses', 'statuses.id', '=', 'resumes.status_id')
+                        ->select('resumes.*', 'levels.name as resumes.level', 'vacancies.name as resumes.vacancy', 'statuses.name as resumes.status')
+                        ->sortable([ 'created_at' => 'asc' ])
+                        ->where('statuses.name', 'like', '%'.$filter.'%')
+                        ->paginate($paginate);
+                    break;
+                case "vacancy":
+                    $resumes = Resume::leftjoin('levels', 'levels.id', '=', 'resumes.level_id')
+                        ->leftjoin('vacancies', 'vacancies.id', '=', 'resumes.vacancy_id')
+                        ->leftjoin('statuses', 'statuses.id', '=', 'resumes.status_id')
+                        ->select('resumes.*', 'levels.name as resumes.level', 'vacancies.name as resumes.vacancy', 'statuses.name as resumes.status')
+                        ->sortable([ 'created_at' => 'asc' ])
+                        ->where('vacancies.name', 'like', '%'.$filter.'%')
+                        ->paginate($paginate);
+                    break;
+
+                default:
+                    $resumes = Resume::leftjoin('levels', 'levels.id', '=', 'resumes.level_id')
+                        ->leftjoin('vacancies', 'vacancies.id', '=', 'resumes.vacancy_id')
+                        ->leftjoin('statuses', 'statuses.id', '=', 'resumes.status_id')
+                        ->select('resumes.*', 'levels.name as resumes.level', 'vacancies.name as resumes.vacancy', 'statuses.name as resumes.status')
+                        ->sortable([ 'created_at' => 'asc' ])
+                        ->paginate($paginate);
+            }
+        } else {
+            $resumes = Resume::leftjoin('levels', 'levels.id', '=', 'resumes.level_id')
+                ->leftjoin('vacancies', 'vacancies.id', '=', 'resumes.vacancy_id')
+                ->leftjoin('statuses', 'statuses.id', '=', 'resumes.status_id')
+                ->select('resumes.*', 'levels.name as resumes.level', 'vacancies.name as resumes.vacancy', 'statuses.name as resumes.status')
+                ->sortable([ 'created_at' => 'asc' ])
+                ->paginate($paginate);
+        }
         $statuses = Status::get();
 
-        return view('resumes.list', compact('resumes', 'statuses'));
+        return view('resumes.list', compact('resumes', 'statuses', 'filter'));
     }
 
     public function show(Resume $resume)

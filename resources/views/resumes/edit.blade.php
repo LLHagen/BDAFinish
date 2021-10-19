@@ -4,11 +4,8 @@
         <x-head.tinymce-config />
     </x-slot>
 
-
-
     <h2>Редактирование</h2>
     <br>
-
     <form action="/resumes/{{ $resume->id }}" method="post">
         @csrf
         @method('patch')
@@ -28,6 +25,7 @@
                         @if($resume->level_id == $level->id)
                             selected="selected"
                         @endif
+                        value="{{$level->id}}"
                     >
                             {{$level->name}}
                     </option>
@@ -42,24 +40,13 @@
                         @if($resume->vacancy_id == $vacancy->id)
                         selected="selected"
                         @endif
-                        value="{{$level->id}}"
+                        value="{{$vacancy->id}}"
                     >
-                        {{$level->name}}
+                        {{$vacancy->name}}
                     </option>
                 @endforeach
             </select>
         </div>
-        <label for="vacancy_id">vacancy_id</label>
-        <select class="form-control"  name="vacancy_id">
-            @foreach($vacancies as $vacancy)
-                <option
-                    @if($resume->vacancy_id == $vacancy->id)
-                    selected="selected"
-                    @endif
-                    value="{{$vacancy->id}}"
-                >{{$vacancy->name}}</option>
-            @endforeach
-        </select>
 
         <div class="form-group">
             <label for="skills">Навыки</label>
@@ -73,7 +60,7 @@
             <label for="text">Опыт</label>
             <textarea id="experience" class="form-control editor" name="experience" placeholder="Опыт">{!! $resume->experience !!}</textarea>
         </div>
-        
+
         <br>
         <a href="/resumes"  class="btn btn-outline-primary btn-sm" type="button">Назад</a>
         <input type="submit"  class="btn btn-outline-primary btn-sm"  name="updateResume" value="Изменить">

@@ -16,9 +16,34 @@
         </div>
         <x-alerts.errors />
 
-
-
         <div class="table-responsive-sm">
+            <form class="form-inline" method="GET">
+                <div class="form-group mb-2">
+                    <select class="form-control" name="filter_column" id="status_id">
+                        @foreach([
+                                    "FIO" => "ФИО",
+                                    'level' => 'Уровень',
+                                    'status' => 'Статус',
+                                    'vacancy' => 'Должность',
+                                ] as $key => $filter_column)
+                            <option
+                                @if($key == request()->filter_column)
+                                selected="selected"
+                                @endif
+                                value="{{$key}}"
+                            >
+                                {{$filter_column}}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group mb-2">
+                    <label for="filter" class="col-sm-2 col-form-label">Filter</label>
+                    <input type="text" class="form-control" id="filter" name="filter" placeholder="Product name..." value="{{$filter}}">
+                </div>
+                <button type="submit" class="btn btn-default mb-2">Искать</button>
+            </form>
+
 
 
             <table class="table table-bordered table-sm table-hover mb-5 table-responsive" id="mytable">
@@ -55,7 +80,8 @@
                                         {{$status->name}}
                                     </option>
                                 @endforeach
-                            </select></td>
+                            </select>
+                        </td>
                         <td>
                             <input
                                 id="party"
@@ -95,7 +121,9 @@
 
                 </tbody>
             </table>
-        {{ $resumes->links('vendor.pagination.bootstrap-4') }}
+            @if(!empty($resumes->links))
+                {{ $resumes->links('vendor.pagination.bootstrap-4') }}
+            @endif
         </div>
     </div>
 
