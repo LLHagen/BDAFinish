@@ -21,6 +21,14 @@
                     <a class="dropdown-item" href="{{ URL::to('/statuses') }}">Статусы</a>
                 </div>
             </li>
+            @auth()
+            <li class="nav-item">
+                    <form  action="/logout" method="post">
+                        @csrf
+                        <input class="btn btn-dark mb-2" type="submit" value="Выйти">
+                    </form>
+            </li>
+            @endauth
         </ul>
     </div>
 </nav>
