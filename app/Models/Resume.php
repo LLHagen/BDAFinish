@@ -49,6 +49,6 @@ class Resume extends Model
     }
 
     public function getInterviewDateFormattedAttribute(){
-        return $this->interview_date ? $this->interview_date->format('Y-m-d\TH:i') : null;
+        return $this->interview_date ? $this->interview_date->format('d.m.y H:i') : null;
     }
 }
