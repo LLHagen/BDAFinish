@@ -21,21 +21,6 @@
                            placeholder="E-mail"
                            value="{{ old('email') }}">
                 </div>
-                <div class="form-group">
-                    <label for="status_id">Статус</label>
-                    <select class="form-control" name="status_id">
-                        @foreach($statuses as $id=>$name)
-                            <option
-                                    @if($resume->status_id == $name)
-                                    selected="selected"
-                                    @endif
-                                    value="{{ $id }}"
-                            >
-                                {{$name}}
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
 
                 <div class="form-group">
                     <label for="level_id">Уровень</label>

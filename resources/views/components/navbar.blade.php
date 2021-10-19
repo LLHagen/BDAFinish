@@ -8,7 +8,13 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="{{ URL::to('/resumes') }}">Резюме</a>
+                @guest
+                    <a class="nav-link" href="{{ URL::to('/resumes/create') }}">Резюме</a>
+                @endguest
+                @auth
+                    <a class="nav-link" href="{{ URL::to('/resumes') }}">Резюме</a>
+                @endauth
+
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
@@ -21,6 +27,14 @@
                     <a class="dropdown-item" href="{{ URL::to('/statuses') }}">Статусы</a>
                 </div>
             </li>
+            @auth()
+            <li class="nav-item">
+                    <form  action="/logout" method="post">
+                        @csrf
+                        <input class="btn btn-dark mb-2" type="submit" value="Выйти">
+                    </form>
+            </li>
+            @endauth
         </ul>
     </div>
 </nav>

@@ -2,8 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Http\Controllers\VacanciesController;
-use App\Models\Level;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -20,7 +18,8 @@ class DatabaseSeeder extends Seeder
             LevelSeeder::class,
             StatusSeeder::class,
             VacancySeeder::class,
-            ResumeSeeder::class
+            ResumeSeeder::class,
+            UserSeeder::class
         ]);
     }
 }
