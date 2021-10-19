@@ -23,7 +23,7 @@ class CreateResumesTable extends Migration
             $table->dateTime('interview_date')->nullable();
             $table->integer('level_id')->unsigned()->index();
             $table->foreign('level_id')->references('id')->on('levels');
-            $table->integer('status_id')->unsigned()->index()->nullable();
+            $table->integer('status_id')->unsigned()->index()->default(1);
             $table->foreign('status_id')->references('id')->on('statuses');
             $table->integer('vacancy_id')->unsigned()->index();
             $table->foreign('vacancy_id')->references('id')->on('vacancies');

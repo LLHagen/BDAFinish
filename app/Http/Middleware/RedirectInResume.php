@@ -15,7 +15,7 @@ class RedirectInResume extends Middleware
     protected function redirectTo($request)
     {
         if (! $request->expectsJson()) {
-            return route('resumes.create');
+            return response()->redirectTo('resumes\create');
         }
     }
 }
