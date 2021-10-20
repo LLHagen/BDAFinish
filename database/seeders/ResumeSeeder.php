@@ -14,11 +14,12 @@ class ResumeSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('resumes')->insert([
-            [
-                'FIO' => 'Виталий Веселко',
-                'email' => 'vesyolko.v-dev@adict.ru',
-                'skills' => '<p>php8+</p>
+
+        $resumeArray = [];
+        $resumeArray[] = [
+            'FIO' => 'Виталий Веселко',
+            'email' => 'vesyolko.v-dev@adict.ru',
+            'skills' => '<p>php8+</p>
                     <p>Laravel8+</p>
                     <p>git</p>
                     <p>MySQL/MariaDB/PostgreSQL/MongoDB</p>
@@ -28,7 +29,7 @@ class ResumeSeeder extends Seeder
                     <p>Swagger</p>
                     <p>PhpUnit</p>
                     <p>Symfony5+</p>',
-                'resume' => '<p>В основном, весь мой опыт, это крупные и средние проекты, в том числе</p>
+            'resume' => '<p>В основном, весь мой опыт, это крупные и средние проекты, в том числе</p>
                     <p>highload</p>
                     <p>когда ру-рынок наполнился большим количеством highload проектов, для меня</p>
                     <p>это стало некоторой гонкой за таким опытом, и сейчас я нацеливаюсь именно</p>
@@ -67,7 +68,7 @@ class ResumeSeeder extends Seeder
                     <p>более того, я не уверен, встречал ли я за всю свою жизнь команду, где целиком</p>
                     <p>придерживаются SOLID</p>
                     <p>С английским языком проблем нет, но есть куда расти и совершенствоваться.</p>',
-                'experience' => '<p>Апрель 2020 &mdash; По настоящее время (1 год и 6 месяцев)</p>
+            'experience' => '<p>Апрель 2020 &mdash; По настоящее время (1 год и 6 месяцев)</p>
                     <p>Фриланс</p>
                     <p>IT руководитель, web-разработчик, менеджер проекта</p>
                     <p>Полный цикл разработки индивидуального программного обеспечения. Начиная</p>
@@ -285,12 +286,14 @@ class ResumeSeeder extends Seeder
                     <p>Bootstrap и библиотеки JQuery. За время существования проекта сайт</p>
                     <p>взаимодействовал с двумя СУБД: MySQL и PostgreSQL. Система контроля</p>
                     <p>версий git.</p>',
-                'status_id' => 1,
-                'vacancy_id' => 1,
-                'level_id' => 1,
-                'interview_date' => null,
-            ],
-            [
+            'status_id' => 1,
+            'vacancy_id' => 1,
+            'level_id' => 1,
+            'interview_date' => null,
+        ];
+
+        for ($i = 1; $i <= 40; $i++) {
+            $resumeArray[] = [
                 'FIO' => 'Иванов Иван Иванович',
                 'email' => 'igot-smirnov-94@mail.ru',
                 'skills' => 'skills текст',
@@ -300,7 +303,10 @@ class ResumeSeeder extends Seeder
                 'vacancy_id' => 1,
                 'level_id' => 1,
                 'interview_date' => '2021-10-05 17:26',
-            ]
-        ]);
+            ];
+        }
+
+
+        DB::table('resumes')->insert($resumeArray);
     }
 }

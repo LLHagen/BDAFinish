@@ -106,9 +106,7 @@
                 @endif
                 </tbody>
             </table>
-            @if(!empty($resumes->links))
-                {{ $resumes->links('vendor.pagination.bootstrap-4') }}
-            @endif
+            {{ $resumes->links('vendor.pagination.bootstrap-4') }}
         </div>
     </div>
 
